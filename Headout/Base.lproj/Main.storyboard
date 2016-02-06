@@ -1,68 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="IBE-VS-vMn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ToV-Wb-Bzu">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Item 2-->
-        <scene sceneID="BMx-99-SyS">
-            <objects>
-                <viewController id="jmj-0U-Eph" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="SAa-oh-SvQ"/>
-                        <viewControllerLayoutGuide type="bottom" id="MpE-j9-uu8"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ivU-GQ-ZOr">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="DYk-Wf-Y7c"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="A9Z-yY-psT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1772" y="16"/>
-        </scene>
-        <!--Item 1-->
-        <scene sceneID="Gr0-si-gr2">
-            <objects>
-                <viewController id="dqo-Vs-bNU" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="9ev-0q-a65"/>
-                        <viewControllerLayoutGuide type="bottom" id="IdX-pW-zPF"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="c7T-kf-6Ip">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="9Ow-2Z-rf9"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zjl-rl-tkT" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1772" y="-645"/>
-        </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="MAE-FP-0q6">
-            <objects>
-                <tabBarController id="IBE-VS-vMn" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="6Ih-Fb-YVh">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="dqo-Vs-bNU" kind="relationship" relationship="viewControllers" id="Mkp-b4-Wqg"/>
-                        <segue destination="jmj-0U-Eph" kind="relationship" relationship="viewControllers" id="tib-jW-lZn"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="n6s-d3-cd8" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="952" y="-315"/>
-        </scene>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -275,17 +219,17 @@
                                         <exclude reference="PcD-NQ-i3F"/>
                                         <exclude reference="PeY-mw-HfC"/>
                                         <exclude reference="gIS-ri-bpJ"/>
-                                        <exclude reference="B6T-fT-z74"/>
                                         <exclude reference="B29-K4-Rsd"/>
+                                        <exclude reference="B6T-fT-z74"/>
                                         <exclude reference="l1j-73-wjx"/>
-                                        <exclude reference="Zlb-DP-3Vo"/>
+                                        <exclude reference="4g4-Yn-uaJ"/>
+                                        <exclude reference="I1z-HW-ws5"/>
+                                        <exclude reference="P1T-96-UTV"/>
                                         <exclude reference="MMp-Sb-WGh"/>
                                         <exclude reference="UpD-fy-Qu1"/>
+                                        <exclude reference="Zlb-DP-3Vo"/>
                                         <exclude reference="o1n-Tf-vaJ"/>
                                         <exclude reference="xHY-CJ-6FO"/>
-                                        <exclude reference="P1T-96-UTV"/>
-                                        <exclude reference="I1z-HW-ws5"/>
-                                        <exclude reference="4g4-Yn-uaJ"/>
                                         <exclude reference="5wE-YX-Uj0"/>
                                         <exclude reference="rRB-Qf-yXB"/>
                                     </mask>
@@ -303,17 +247,17 @@
                                         <include reference="PcD-NQ-i3F"/>
                                         <include reference="PeY-mw-HfC"/>
                                         <include reference="gIS-ri-bpJ"/>
-                                        <include reference="B6T-fT-z74"/>
                                         <include reference="B29-K4-Rsd"/>
+                                        <include reference="B6T-fT-z74"/>
                                         <include reference="l1j-73-wjx"/>
-                                        <include reference="Zlb-DP-3Vo"/>
+                                        <include reference="4g4-Yn-uaJ"/>
+                                        <include reference="I1z-HW-ws5"/>
+                                        <include reference="P1T-96-UTV"/>
                                         <include reference="MMp-Sb-WGh"/>
                                         <include reference="UpD-fy-Qu1"/>
+                                        <include reference="Zlb-DP-3Vo"/>
                                         <exclude reference="o1n-Tf-vaJ"/>
                                         <include reference="xHY-CJ-6FO"/>
-                                        <include reference="P1T-96-UTV"/>
-                                        <include reference="I1z-HW-ws5"/>
-                                        <include reference="4g4-Yn-uaJ"/>
                                         <include reference="5wE-YX-Uj0"/>
                                         <include reference="rRB-Qf-yXB"/>
                                     </mask>
@@ -348,14 +292,14 @@
                                 <exclude reference="Ige-KL-z6E"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="cB6-5F-g0Z"/>
+                                <exclude reference="r1N-JL-uGk"/>
+                                <exclude reference="yS0-U9-g8I"/>
                                 <exclude reference="7jw-q0-pJe"/>
                                 <exclude reference="BGq-Nn-6uV"/>
                                 <exclude reference="Xe3-j9-Z6Y"/>
                                 <exclude reference="buZ-e1-eYr"/>
                                 <exclude reference="hRa-Y1-w4K"/>
-                                <exclude reference="cB6-5F-g0Z"/>
-                                <exclude reference="r1N-JL-uGk"/>
-                                <exclude reference="yS0-U9-g8I"/>
                                 <exclude reference="175-An-uu9"/>
                                 <exclude reference="R2E-hs-Coc"/>
                                 <exclude reference="fah-Xk-kKm"/>
@@ -369,14 +313,14 @@
                                 <include reference="Ige-KL-z6E"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="cB6-5F-g0Z"/>
+                                <include reference="r1N-JL-uGk"/>
+                                <include reference="yS0-U9-g8I"/>
                                 <include reference="7jw-q0-pJe"/>
                                 <include reference="BGq-Nn-6uV"/>
                                 <include reference="Xe3-j9-Z6Y"/>
                                 <include reference="buZ-e1-eYr"/>
                                 <exclude reference="hRa-Y1-w4K"/>
-                                <include reference="cB6-5F-g0Z"/>
-                                <include reference="r1N-JL-uGk"/>
-                                <include reference="yS0-U9-g8I"/>
                                 <include reference="175-An-uu9"/>
                                 <include reference="R2E-hs-Coc"/>
                                 <include reference="fah-Xk-kKm"/>
@@ -396,6 +340,45 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1090" y="425"/>
+        </scene>
+        <!--Chat View Controller-->
+        <scene sceneID="8gL-7P-8ZR">
+            <objects>
+                <viewController id="ToV-Wb-Bzu" customClass="HDChatViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bhd-ch-miO"/>
+                        <viewControllerLayoutGuide type="bottom" id="EvD-kw-gao"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="juh-VP-t55">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OuR-ZA-RrB">
+                                <rect key="frame" x="0.0" y="12" width="600" height="588"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="ToV-Wb-Bzu" id="zLC-MR-1wv"/>
+                                    <outlet property="delegate" destination="ToV-Wb-Bzu" id="dhW-Dt-V87"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="OuR-ZA-RrB" firstAttribute="topMargin" secondItem="bhd-ch-miO" secondAttribute="bottom" id="2aM-gH-0wW"/>
+                            <constraint firstItem="OuR-ZA-RrB" firstAttribute="leading" secondItem="juh-VP-t55" secondAttribute="leading" id="3l3-fG-jUM"/>
+                            <constraint firstItem="EvD-kw-gao" firstAttribute="top" secondItem="OuR-ZA-RrB" secondAttribute="bottom" id="F2g-5i-b2w"/>
+                            <constraint firstAttribute="trailing" secondItem="OuR-ZA-RrB" secondAttribute="trailing" id="Vzg-Vz-eF9"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="u6O-6R-2ed"/>
+                    <connections>
+                        <outlet property="bottomConstraint" destination="F2g-5i-b2w" id="hdT-pT-vjW"/>
+                        <outlet property="chatTableView" destination="OuR-ZA-RrB" id="Bxg-ya-age"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QvH-JQ-uxc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2479" y="41"/>
         </scene>
     </scenes>
     <resources>
