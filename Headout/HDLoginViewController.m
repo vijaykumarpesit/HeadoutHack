@@ -10,6 +10,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "HDGoogleAPIFetcher.h"
+#import "AppDelegate.h"
 
 @interface HDLoginViewController ()
 @property (weak, nonatomic) IBOutlet FBSDKLoginButton *fbLoginButton;
@@ -32,6 +33,7 @@
                                            //@"user_location",@"user_events",
                                            //@"user_tagged_places"
                                            ];
+    self.fbLoginButton.delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     UIColor *color = [UIColor whiteColor];
     self.emailTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Email" attributes:@{NSForegroundColorAttributeName: color}];
     self.emailTextField.layer.borderColor=[[UIColor whiteColor]CGColor];
@@ -48,5 +50,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end

@@ -11,9 +11,13 @@
 #import "HDGoogleAPIFetcher.h"
 #import "HDFBLoginHandler.h"
 #import <Parse/Parse.h>
+#import "HDLoginViewController.h"
+#import "HDChatViewController.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 
-@interface AppDelegate ()
+@interface AppDelegate () <FBSDKLoginButtonDelegate>
 
 @end
 
@@ -25,12 +29,7 @@
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
     
-    //Testing code
-//    [HDGoogleAPIFetcher sharedIntance];
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [[HDGoogleAPIFetcher sharedIntance] fetchPlacesNearByOfType:@"bus_station"];
-//    });
-    
+    [HDGoogleAPIFetcher sharedIntance];
     
     [Parse enableLocalDatastore];
     
@@ -38,13 +37,26 @@
     [Parse setApplicationId:@"hp6k2Z0QPtjYvEs71fR8x9MYtyLazTsDgsZG8DZO"
                   clientKey:@"uIaegiayIkDJsaMkZ7RiRw8i6odqBODe4aL6cwtX"];
     
-    // [Optional] Track statistics around application opens.
-    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
-    
-    
-    [HDFBLoginHandler fetchAndSaveMyInfo];
-
+    [self configureRootVC];
     return YES;
+}
+
+
+- (void)configureRootVC {
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:
+                                @"Main" bundle:[NSBundle mainBundle]];
+
+
+    
+    if([FBSDKAccessToken currentAccessToken]) {
+        UINavigationController *chatNavVC = [storyboard instantiateViewControllerWithIdentifier:@"chatNavVC"];
+        [self.window setRootViewController:chatNavVC];
+    
+    } else {
+        HDLoginViewController *loginVC = [storyboard instantiateViewControllerWithIdentifier:@"loginVC"];
+        [self.window setRootViewController:loginVC];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -70,10 +82,22 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
     return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                           openURL:url
                                                 sourceApplication:sourceApplication
                                                        annotation:annotation
             ];
 }
+
+- (void) loginButton:(FBSDKLoginButton *)loginButton
+didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
+               error:(NSError *)error {
+    
+    if (!error &&result.token) {
+        [self configureRootVC];
+        [HDFBLoginHandler fetchAndSaveMyInfo];
+    }
+}
+
 @end

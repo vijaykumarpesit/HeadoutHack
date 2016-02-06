@@ -10,7 +10,7 @@
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="HDLoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="loginVC" id="BYZ-38-t0r" customClass="HDLoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -344,7 +344,7 @@
         <!--Chat View Controller-->
         <scene sceneID="8gL-7P-8ZR">
             <objects>
-                <viewController id="ToV-Wb-Bzu" customClass="HDChatViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="chatVC" id="ToV-Wb-Bzu" customClass="HDChatViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bhd-ch-miO"/>
                         <viewControllerLayoutGuide type="bottom" id="EvD-kw-gao"/>
@@ -363,7 +363,7 @@
         <!--Navigation Controller-->
         <scene sceneID="GII-UD-XoD">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="deY-tz-psE" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="chatNavVC" automaticallyAdjustsScrollViewInsets="NO" id="deY-tz-psE" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="XLe-l4-5Il">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
