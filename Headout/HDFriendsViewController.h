@@ -1,5 +1,5 @@
 //
-//  HDLike.h
+//  HDFriendsViewController.h
 //  Headout
 //
 //  Created by Vijay on 07/02/16.
@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HDLike : NSObject
+@interface HDFriendsViewController : NSObject
 
 @end

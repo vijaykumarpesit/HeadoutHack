@@ -43,6 +43,8 @@
 		B1295BF11C66786900F3021E /* UUInputFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = B1295BE61C66786900F3021E /* UUInputFunctionView.m */; };
 		B1295BF21C66786900F3021E /* UUImageAvatarBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = B1295BE81C66786900F3021E /* UUImageAvatarBrowser.m */; };
 		B1295BF31C66786900F3021E /* UUAVAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B1295BEA1C66786900F3021E /* UUAVAudioPlayer.m */; };
+		B1295BF61C66916800F3021E /* HDFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1295BF51C66916800F3021E /* HDFriendsViewController.m */; };
+		B1295BF81C6691B400F3021E /* HDFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1295BF71C6691B400F3021E /* HDFriendsViewController.xib */; };
 		B1689A451C65BE6A00436439 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B1689A441C65BE6A00436439 /* main.m */; };
 		B1689A481C65BE6A00436439 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B1689A471C65BE6A00436439 /* AppDelegate.m */; };
 		B1689A4B1C65BE6A00436439 /* HDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1689A4A1C65BE6A00436439 /* HDLoginViewController.m */; };
@@ -115,6 +117,9 @@
 		B1295BE91C66786900F3021E /* UUImageAvatarBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUImageAvatarBrowser.h; sourceTree = "<group>"; };
 		B1295BEA1C66786900F3021E /* UUAVAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUAVAudioPlayer.m; sourceTree = "<group>"; };
 		B1295BEB1C66786900F3021E /* UUAVAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUAVAudioPlayer.h; sourceTree = "<group>"; };
+		B1295BF41C66916800F3021E /* HDFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDFriendsViewController.h; sourceTree = "<group>"; };
+		B1295BF51C66916800F3021E /* HDFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDFriendsViewController.m; sourceTree = "<group>"; };
+		B1295BF71C6691B400F3021E /* HDFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HDFriendsViewController.xib; sourceTree = "<group>"; };
 		B1689A401C65BE6A00436439 /* Headout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Headout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1689A441C65BE6A00436439 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B1689A461C65BE6A00436439 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -269,6 +274,9 @@
 			isa = PBXGroup;
 			children = (
 				B1295BA21C6677B900F3021E /* ChatView */,
+				B1295BF41C66916800F3021E /* HDFriendsViewController.h */,
+				B1295BF51C66916800F3021E /* HDFriendsViewController.m */,
+				B1295BF71C6691B400F3021E /* HDFriendsViewController.xib */,
 				B1295B291C6674C600F3021E /* HDLike.h */,
 				B1295B2A1C6674C600F3021E /* HDLike.m */,
 				B1295B231C66600400F3021E /* HDMessageData.h */,
@@ -376,6 +384,7 @@
 				B1295BC21C66781F00F3021E /* chat_animation3.png in Resources */,
 				B1295BBC1C66781F00F3021E /* chat_voice_record.png in Resources */,
 				B1295BC51C66781F00F3021E /* chat_animation_white3.png in Resources */,
+				B1295BF81C6691B400F3021E /* HDFriendsViewController.xib in Resources */,
 				B1295BC61C66781F00F3021E /* chat_animation_white2.png in Resources */,
 				B1295BC41C66781F00F3021E /* chat_animation1.png in Resources */,
 				B1295BC71C66781F00F3021E /* chat_animation_white1.png in Resources */,
@@ -463,6 +472,7 @@
 				B1295BED1C66786900F3021E /* UUMessageFrame.m in Sources */,
 				B1295B191C6657F400F3021E /* HDChatViewController.m in Sources */,
 				B1B77F031C66243D00A2F4EB /* HDGoogleAPIFetcher.m in Sources */,
+				B1295BF61C66916800F3021E /* HDFriendsViewController.m in Sources */,
 				B1295BD91C66784600F3021E /* MJRefreshBaseView.m in Sources */,
 				B1295BF11C66786900F3021E /* UUInputFunctionView.m in Sources */,
 				B1B77F091C662A4400A2F4EB /* HDFBLoginHandler.m in Sources */,

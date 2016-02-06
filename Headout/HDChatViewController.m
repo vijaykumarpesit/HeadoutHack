@@ -16,13 +16,13 @@
 #import "UUInputFunctionView.h"
 
 
-@interface HDChatViewController () <UITableViewDataSource,UITableViewDelegate,UUMessageCellDelegate,UUInputFunctionViewDelegate>
+@interface HDChatViewController () <UITableViewDataSource,UITableViewDelegate,UUMessageCellDelegate,UUInputFunctionViewDelegate,UITextViewDelegate>
 
 @property (nonatomic, strong) NSMutableArray *messages;
 @property (nonatomic, strong) NSCache *avatarCache;
 @property (nonatomic, strong) UIImageView *avatarImageView;
 @property (strong, nonatomic)  UITableView *chatTableView;
-@property (nonatomic, strong) UUInputFunctionView *IFView;
+@property (nonatomic, strong) UUInputFunctionView *chatToolBar;
 
 @end
 
@@ -77,9 +77,10 @@
 
 - (void)loadBaseViewsAndData
 {
-    self.IFView = [[UUInputFunctionView alloc]initWithSuperVC:self];
-    self.IFView.delegate = self;
-    [self.view addSubview:self.IFView];
+    self.chatToolBar = [[UUInputFunctionView alloc]initWithSuperVC:self];
+    self.chatToolBar.delegate = self;
+    [self.view addSubview:self.chatToolBar];
+    
     
     [self.chatTableView reloadData];
     [self tableViewScrollToBottom];
@@ -127,9 +128,9 @@
     //adjust ChatTableView's height
     if (notification.name == UIKeyboardWillShowNotification) {
         self.chatTableView.frame = CGRectMake(0, 0,self.chatTableView.frame.size.width , self.view.bounds.size.height -55-keyboardEndFrame.size.height);
-        CGRect newFrame = self.IFView.frame;
+        CGRect newFrame = self.chatToolBar.frame;
         newFrame.origin.y = keyboardEndFrame.origin.y - newFrame.size.height;
-        self.IFView.frame = newFrame;
+        self.chatToolBar.frame = newFrame;
     }else{
         self.chatTableView.frame = CGRectMake(0, 0, self.chatTableView.frame.size.width, self.view.bounds.size.height -55);
     }
@@ -152,11 +153,21 @@
     HDMessage *hdMessage = [self.messages objectAtIndex:indexPath.row];
     UUMessageFrame * messageFrame = [[UUMessageFrame alloc] init];
     UUMessage *message = [[UUMessage alloc] init];
-    message.strIcon = @"";
-     message.strId = hdMessage.senderID;
-    //message.strTime = hdMessage.timestamp;
+    //Change this profile pic depending on sender
+    NSString *profilePicPath = [[[HDDataManager sharedManager] currentUser] profilePicPath];
+    if (profilePicPath) {
+        message.strIcon = profilePicPath;
+    } else {
+        message.strIcon = @"";
+    }
+    message.strId = hdMessage.senderID;
+    NSString *dateString = [NSDateFormatter localizedStringFromDate:hdMessage.timestamp
+                                                          dateStyle:NSDateFormatterShortStyle
+                                                          timeStyle:NSDateFormatterFullStyle];
+    message.strTime = dateString;
     message.strName = hdMessage.senderName;
     message.strContent = hdMessage.text;
+    message.from = UUMessageFromOther;
     [messageFrame setMessage:message];
     [cell setMessageFrame:messageFrame];
     return cell;
@@ -178,6 +189,7 @@
         hdMessage.text = message;
         hdMessage.senderID = [[[HDDataManager sharedManager] currentUser] userID];
         hdMessage.senderName = [[[HDDataManager sharedManager] currentUser] name];
+        hdMessage.timestamp = [NSDate date];
         funcView.TextViewInput.text = @"";
         [self.messages addObject:hdMessage];
         [self.chatTableView reloadData];
@@ -200,5 +212,13 @@
                           @"type": @(UUMessageTypeVoice)};
 }
 
+- (void)UUInputFunctionView:(UUInputFunctionView *)funcView textDidChange:(UITextView *)textView {
+
+    if ([textView.text isEqualToString:@"@"]) {
+        //Populate small table
+    } else if (textView.text.length > 0 && [[textView.text substringToIndex:1] isEqualToString:@"#"]) {
+        //Hash tag feature
+    }
+}
 
 @end

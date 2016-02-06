@@ -206,6 +206,11 @@
 {
     [self changeSendBtnWithPhoto:textView.text.length>0?NO:YES];
     placeHold.hidden = textView.text.length>0;
+    
+    if ([self.delegate respondsToSelector:@selector(UUInputFunctionView:textDidChange:)]) {
+        [self.delegate UUInputFunctionView:self textDidChange:textView];
+    }
+    
 }
 
 - (void)changeSendBtnWithPhoto:(BOOL)isPhoto

@@ -108,18 +108,10 @@ NSString * const kProfilePic = @"profilePic";
     [self.parseUser saveInBackground];
 }
 
-- (UIImage *)profilePic {
+- (NSString *)profilePicPath {
     
-    if ([self.profilePicCache valueForKey:@"ProfilePic"]) {
-        return  [self.profilePic valueForKey:@"ProfilePic"];
-    
-    } else {
-        PFFile *imageFile = self.parseUser[@"ProfilePic"];
-        NSData *imageData = [imageFile getData];
-        UIImage *image = [UIImage imageWithData:imageData];
-        [self.profilePicCache setObject:image forKey:@"ProfilePic"];
-        return image;
-    }
+    PFFile *imageFile = self.parseUser[@"ProfilePic"];
+    return  imageFile.url;
 }
 
 @end

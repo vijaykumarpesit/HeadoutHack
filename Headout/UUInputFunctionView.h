@@ -6,6 +6,13 @@
 //  Copyright (c) 2014年 uyiuyao. All rights reserved.
 //
 
+
+
+//The worst design ever can be made,
+
+//But this is helping hackathon .Personally this chat thread is waaaaak
+
+
 #import <UIKit/UIKit.h>
 
 @class UUInputFunctionView;
@@ -20,6 +27,9 @@
 
 // audio
 - (void)UUInputFunctionView:(UUInputFunctionView *)funcView sendVoice:(NSData *)voice time:(NSInteger)second;
+
+- (void)UUInputFunctionView:(UUInputFunctionView *)funcView textDidChange:(UITextView *)textView;
+
 
 @end
 
