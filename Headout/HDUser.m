@@ -14,6 +14,14 @@ NSString * const kKeyName = @"name";
 NSString * const kEmailID = @"emailID";
 NSString * const kProfilePic = @"profilePic";
 
+@interface HDUser ()
+
+@property (nonatomic, strong) NSCache *profilePicCache;
+@property (nonatomic, assign) BOOL isSaveInPreogress;
+
+
+@end
+
 @implementation HDUser
 
 - (instancetype)initWithPFUser:(PFUser*)parseUser {
@@ -25,7 +33,9 @@ NSString * const kProfilePic = @"profilePic";
 
 
 - (void)setUserID:(NSString*)userID {
-    [self.parseUser setObject:userID forKey:kKeyUserId];
+    if (userID) {
+        [self.parseUser setObject:userID forKey:kKeyUserId];
+    }
 }
 
 - (NSString*)userID {
@@ -52,8 +62,64 @@ NSString * const kProfilePic = @"profilePic";
 }
 
 - (void)saveUser {
+    if (self.isSaveInPreogress) {
+        return;
+    }
+    
+    [self.parseUser saveInBackground];
+    
+    __block PFObject *user = nil;
+    
+    if (self.emailID) {
+        self.isSaveInPreogress = YES;
+        
+        PFQuery *query = [PFQuery queryWithClassName:@"HDUser"];
+        [query whereKey:@"emailID" equalTo:self.emailID];
+        [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            
+            if (objects.count) {
+                user = [objects lastObject];
+            } else {
+                user = [PFObject objectWithClassName:@"HDUser"];
+            }
+            
+            
+            [self.parseUser.allKeys enumerateObjectsUsingBlock:^(NSString * _Nonnull key, NSUInteger idx, BOOL * _Nonnull stop) {
+                [user setObject:self.parseUser[key] forKey:key];
+                
+            }];
+            
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                [user save];
+                self.isSaveInPreogress = NO;
+                
+            });
+        }];
+        
+        
+    }
+}
+
+- (void)setProfilePic:(UIImage *)profilePic {
+    NSData *imageData = UIImagePNGRepresentation(profilePic);
+    PFFile *imageFile = [PFFile fileWithName:[NSString stringWithFormat:@"profilePic.png"] data:imageData];
+    [imageFile saveInBackground];
+    self.parseUser[@"ProfilePic"] = imageFile;
     [self.parseUser saveInBackground];
 }
 
+- (UIImage *)profilePic {
+    
+    if ([self.profilePicCache valueForKey:@"ProfilePic"]) {
+        return  [self.profilePic valueForKey:@"ProfilePic"];
+    
+    } else {
+        PFFile *imageFile = self.parseUser[@"ProfilePic"];
+        NSData *imageData = [imageFile getData];
+        UIImage *image = [UIImage imageWithData:imageData];
+        [self.profilePicCache setObject:image forKey:@"ProfilePic"];
+        return image;
+    }
+}
 
 @end

@@ -65,5 +65,9 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string> App use Locations service mode In Use</string>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key><true/>
+    </dict>
 </dict>
 </plist>

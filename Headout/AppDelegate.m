@@ -9,6 +9,9 @@
 #import "AppDelegate.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import "HDGoogleAPIFetcher.h"
+#import "HDFBLoginHandler.h"
+#import <Parse/Parse.h>
+
 
 @interface AppDelegate ()
 
@@ -23,10 +26,23 @@
                              didFinishLaunchingWithOptions:launchOptions];
     
     //Testing code
-    [HDGoogleAPIFetcher sharedIntance];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[HDGoogleAPIFetcher sharedIntance] fetchPlacesNearByOfType:@"bus_station"];
-    });
+//    [HDGoogleAPIFetcher sharedIntance];
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [[HDGoogleAPIFetcher sharedIntance] fetchPlacesNearByOfType:@"bus_station"];
+//    });
+    
+    
+    [Parse enableLocalDatastore];
+    
+    // Initialize Parse.
+    [Parse setApplicationId:@"hp6k2Z0QPtjYvEs71fR8x9MYtyLazTsDgsZG8DZO"
+                  clientKey:@"uIaegiayIkDJsaMkZ7RiRw8i6odqBODe4aL6cwtX"];
+    
+    // [Optional] Track statistics around application opens.
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    
+    [HDFBLoginHandler fetchAndSaveMyInfo];
 
     return YES;
 }

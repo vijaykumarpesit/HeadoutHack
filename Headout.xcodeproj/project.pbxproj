@@ -16,6 +16,8 @@
 		B1689A531C65BE6A00436439 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1689A511C65BE6A00436439 /* LaunchScreen.storyboard */; };
 		B1B77F031C66243D00A2F4EB /* HDGoogleAPIFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = B1B77F021C66243D00A2F4EB /* HDGoogleAPIFetcher.m */; };
 		B1B77F061C6625DE00A2F4EB /* HDUser.m in Sources */ = {isa = PBXBuildFile; fileRef = B1B77F051C6625DE00A2F4EB /* HDUser.m */; };
+		B1B77F091C662A4400A2F4EB /* HDFBLoginHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = B1B77F081C662A4400A2F4EB /* HDFBLoginHandler.m */; };
+		B1B77F0C1C662F5100A2F4EB /* HDDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B1B77F0B1C662F5100A2F4EB /* HDDataManager.m */; };
 		EB1CABB42ED6FC1C1C9BC0AC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B73C3333FC38813B2C21DE /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +39,10 @@
 		B1B77F021C66243D00A2F4EB /* HDGoogleAPIFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDGoogleAPIFetcher.m; sourceTree = "<group>"; };
 		B1B77F041C6625DE00A2F4EB /* HDUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDUser.h; sourceTree = "<group>"; };
 		B1B77F051C6625DE00A2F4EB /* HDUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDUser.m; sourceTree = "<group>"; };
+		B1B77F071C662A4400A2F4EB /* HDFBLoginHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDFBLoginHandler.h; sourceTree = "<group>"; };
+		B1B77F081C662A4400A2F4EB /* HDFBLoginHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDFBLoginHandler.m; sourceTree = "<group>"; };
+		B1B77F0A1C662F5100A2F4EB /* HDDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDDataManager.h; sourceTree = "<group>"; };
+		B1B77F0B1C662F5100A2F4EB /* HDDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDDataManager.m; sourceTree = "<group>"; };
 		C906D02A98FF1FF6181F15ED /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E9B73C3333FC38813B2C21DE /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -107,6 +113,10 @@
 				B1689A4A1C65BE6A00436439 /* HDLoginViewController.m */,
 				B1B77F041C6625DE00A2F4EB /* HDUser.h */,
 				B1B77F051C6625DE00A2F4EB /* HDUser.m */,
+				B1B77F071C662A4400A2F4EB /* HDFBLoginHandler.h */,
+				B1B77F081C662A4400A2F4EB /* HDFBLoginHandler.m */,
+				B1B77F0A1C662F5100A2F4EB /* HDDataManager.h */,
+				B1B77F0B1C662F5100A2F4EB /* HDDataManager.m */,
 				B1689A4F1C65BE6A00436439 /* Assets.xcassets */,
 				B1689A4C1C65BE6A00436439 /* Main.storyboard */,
 				B1689A511C65BE6A00436439 /* LaunchScreen.storyboard */,
@@ -250,9 +260,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1689A4B1C65BE6A00436439 /* HDLoginViewController.m in Sources */,
+				B1B77F0C1C662F5100A2F4EB /* HDDataManager.m in Sources */,
 				B1689A481C65BE6A00436439 /* AppDelegate.m in Sources */,
 				B1689A451C65BE6A00436439 /* main.m in Sources */,
 				B1B77F031C66243D00A2F4EB /* HDGoogleAPIFetcher.m in Sources */,
+				B1B77F091C662A4400A2F4EB /* HDFBLoginHandler.m in Sources */,
 				B1B77F061C6625DE00A2F4EB /* HDUser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
