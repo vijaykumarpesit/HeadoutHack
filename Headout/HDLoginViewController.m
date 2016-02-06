@@ -12,8 +12,10 @@
 #import "HDGoogleAPIFetcher.h"
 
 @interface HDLoginViewController ()
-
-@property (weak, nonatomic) IBOutlet FBSDKLoginButton *loginButton;
+@property (weak, nonatomic) IBOutlet FBSDKLoginButton *fbLoginButton;
+@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (weak, nonatomic) IBOutlet UIButton *signInButton;
 
 @end
 
@@ -21,18 +23,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    FBSDKLoginButton *loginButton = [[FBSDKLoginButton alloc] init];
-    // Optional: Place the button in the center of your view.
-    loginButton.center = self.view.center;
-    [self.view addSubview:loginButton];
-    loginButton.readPermissions =
-    @[@"public_profile",
-      @"email",
-      //@"user_friends",
-      //@"user_location",@"user_events",
-      //@"user_tagged_places"
-      ];
     
+    [[self.signInButton layer] setMasksToBounds:YES];
+    [[self.signInButton layer] setCornerRadius:5.0];
+    self.fbLoginButton.readPermissions = @[@"public_profile",
+                                           @"email",
+                                           //@"user_friends",
+                                           //@"user_location",@"user_events",
+                                           //@"user_tagged_places"
+                                           ];
+    UIColor *color = [UIColor whiteColor];
+    self.emailTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Email" attributes:@{NSForegroundColorAttributeName: color}];
+    self.emailTextField.layer.borderColor=[[UIColor whiteColor]CGColor];
+    self.emailTextField.layer.borderWidth= 1.0f;
+    self.passwordTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Password" attributes:@{NSForegroundColorAttributeName: color}];
+    self.passwordTextField.layer.borderColor=[[UIColor whiteColor]CGColor];
+    self.passwordTextField.layer.borderWidth= 1.0f;
+    
+    [self.emailTextField setBackgroundColor:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3]];
+    [self.passwordTextField setBackgroundColor:[UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.3]];
 }
 
 - (void)didReceiveMemoryWarning {

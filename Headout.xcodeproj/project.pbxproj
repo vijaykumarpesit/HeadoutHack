@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC8BCE261C66284800EED405 /* alone-travel-320x480-wallpaper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AC8BCE251C66284800EED405 /* alone-travel-320x480-wallpaper.jpg */; };
 		B1689A451C65BE6A00436439 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B1689A441C65BE6A00436439 /* main.m */; };
 		B1689A481C65BE6A00436439 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B1689A471C65BE6A00436439 /* AppDelegate.m */; };
 		B1689A4B1C65BE6A00436439 /* HDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1689A4A1C65BE6A00436439 /* HDLoginViewController.m */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		0F084FD0F1D204DA52303DDB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		AC8BCE251C66284800EED405 /* alone-travel-320x480-wallpaper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "alone-travel-320x480-wallpaper.jpg"; sourceTree = "<group>"; };
 		B1689A401C65BE6A00436439 /* Headout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Headout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1689A441C65BE6A00436439 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B1689A461C65BE6A00436439 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -68,6 +70,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		AC8BCE241C66284800EED405 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				AC8BCE251C66284800EED405 /* alone-travel-320x480-wallpaper.jpg */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		B1689A371C65BE6A00436439 = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +112,7 @@
 				B1689A511C65BE6A00436439 /* LaunchScreen.storyboard */,
 				B1B77EFC1C65DCFE00A2F4EB /* PrefixHeader.pch */,
 				B1689A541C65BE6A00436439 /* Info.plist */,
+				AC8BCE241C66284800EED405 /* Images */,
 				B1689A431C65BE6A00436439 /* Supporting Files */,
 			);
 			path = Headout;
@@ -178,6 +189,7 @@
 			files = (
 				B1689A531C65BE6A00436439 /* LaunchScreen.storyboard in Resources */,
 				B1689A501C65BE6A00436439 /* Assets.xcassets in Resources */,
+				AC8BCE261C66284800EED405 /* alone-travel-320x480-wallpaper.jpg in Resources */,
 				B1689A4E1C65BE6A00436439 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
