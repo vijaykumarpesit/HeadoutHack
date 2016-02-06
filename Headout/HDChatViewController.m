@@ -44,8 +44,20 @@
     [self.chatTableView setDataSource:self];
     [self loadBaseViewsAndData];
     
+    //add notification
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardChange:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardChange:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(tableViewScrollToBottom) name:UIKeyboardDidShowNotification object:nil];
+
+    
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    self.chatTableView.frame = CGRectMake(0, 0,self.view.bounds.size.width , self.view.bounds.size.height-55);
+
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -91,6 +103,37 @@
         message.isIncoming = NO;
         [self.messages addObject:message];
     }
+    
+}
+
+-(void)keyboardChange:(NSNotification *)notification
+{
+    if (self.navigationController.visibleViewController != self) {
+        return;
+    }
+    NSDictionary *userInfo = [notification userInfo];
+    NSTimeInterval animationDuration;
+    UIViewAnimationCurve animationCurve;
+    CGRect keyboardEndFrame;
+    
+    [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animationCurve];
+    [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
+    [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
+    
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    [UIView setAnimationCurve:animationCurve];
+    
+    //adjust ChatTableView's height
+    if (notification.name == UIKeyboardWillShowNotification) {
+        self.chatTableView.frame = CGRectMake(0, 0,self.chatTableView.frame.size.width , self.view.bounds.size.height -55-keyboardEndFrame.size.height);
+        CGRect newFrame = self.IFView.frame;
+        newFrame.origin.y = keyboardEndFrame.origin.y - newFrame.size.height;
+        self.IFView.frame = newFrame;
+    }else{
+        self.chatTableView.frame = CGRectMake(0, 0, self.chatTableView.frame.size.width, self.view.bounds.size.height -55);
+    }
+    [UIView commitAnimations];
     
 }
 
