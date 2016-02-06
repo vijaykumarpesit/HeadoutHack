@@ -21,8 +21,7 @@
 @property (nonatomic, strong) NSMutableArray *messages;
 @property (nonatomic, strong) NSCache *avatarCache;
 @property (nonatomic, strong) UIImageView *avatarImageView;
-@property (weak, nonatomic) IBOutlet UITableView *chatTableView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomConstraint;
+@property (strong, nonatomic)  UITableView *chatTableView;
 @property (nonatomic, strong) UUInputFunctionView *IFView;
 
 @end
@@ -30,7 +29,13 @@
 @implementation HDChatViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    self.chatTableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    [self.chatTableView setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
+    [self.view addSubview:self.chatTableView];
+    self.chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     [self loadAllMessages];
     self.messages = [[NSMutableArray alloc] init];
     self.avatarCache = [[NSCache alloc] init];
