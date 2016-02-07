@@ -19,7 +19,8 @@
 
 @interface HDPlacesTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *placeImageView;
-@property (weak, nonatomic) IBOutlet UILabel *infoLabel;
+@property (weak, nonatomic) IBOutlet UILabel *vicinityLabel;
+@property (weak, nonatomic) IBOutlet UILabel *placeInfoLabel;
 @property (weak, nonatomic) id<HDPlacesTableViewCellDelegate> delegate;
 
 - (void)setLikesCount:(NSInteger)count;

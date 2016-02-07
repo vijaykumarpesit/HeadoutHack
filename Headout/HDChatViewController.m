@@ -77,7 +77,7 @@
     
 #endif
     
-    self.navigationController.title = @"Smart Planner";
+    self.title = @"Smart Planner";
 
 }
 
@@ -197,6 +197,7 @@
     [self.chatToolBar.btnChangeVoiceState removeFromSuperview];
 
     [self.chatToolBar.TextViewInput setFrame:CGRectMake(5, CGRectGetMinY(self.chatToolBar.TextViewInput.frame), CGRectGetWidth(self.chatToolBar.TextViewInput.frame) + 30, CGRectGetHeight(self.chatToolBar.TextViewInput.frame))];
+    [self.chatToolBar.TextViewInput setFont:[UIFont systemFontOfSize:20]];
     [self.chatToolBar changeSendBtnWithPhoto:NO];
     [self.chatToolBar.btnSendMessage setFrame:CGRectMake(CGRectGetMinX(self.chatToolBar.btnSendMessage.frame) - 10, CGRectGetMinY(self.chatToolBar.btnSendMessage.frame), CGRectGetWidth(self.chatToolBar.btnSendMessage.frame) + 10, CGRectGetHeight(self.chatToolBar.btnSendMessage.frame))];
     [self.view addSubview:self.chatToolBar];
@@ -315,7 +316,9 @@
             placesCell = [[HDPlacesTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PlacesCellID"];
         }
         [placesCell.placeImageView sd_setImageWithURL:[NSURL URLWithString:[hdMessage photoURL]] placeholderImage:[UIImage imageNamed:@"image4copy.png"]];
-        placesCell.infoLabel.text = hdMessage.placeName;
+        placesCell.placeInfoLabel.text = hdMessage.placeName;
+        placesCell.vicinityLabel.text = hdMessage.vicinity;
+        placesCell.selectionStyle = UITableViewCellSelectionStyleNone;
         [placesCell setLikesCount:hdMessage.likedUsers.count];
         [placesCell setDislikesCount:hdMessage.disLikedUsers.count];
         placesCell.delegate = self;
@@ -333,7 +336,7 @@
         [messageFrame setMessage:message];
         return [messageFrame cellHeight];
     } else {
-        return 200;
+        return 250;
     }
 }
 
@@ -405,10 +408,15 @@
 
 - (void)UUInputFunctionView:(UUInputFunctionView *)funcView textDidChange:(UITextView *)textView {
 
+    [self.chatToolBar.btnSendMessage setFrame:CGRectMake(325, 5, 45, 30)];
+    
     if ([textView.text isEqualToString:@"@"]) {
         [self populateSearchTable];
     } else if ([textView.text isEqualToString:@""] && self.isBottomTablePopulated) {
         [self removeSearchTable];
+    } else if ([textView.text isEqualToString:@""]) {
+        [self.chatToolBar changeSendBtnWithPhoto:NO];
+        [self.chatToolBar.btnSendMessage setFrame:CGRectMake(325, 5, 45, 30)];
     }
 }
 

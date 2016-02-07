@@ -660,7 +660,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hack.Headout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9e2f1385-0a40-41b3-9246-9506dc32a777";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -681,7 +681,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hack.Headout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9e2f1385-0a40-41b3-9246-9506dc32a777";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
