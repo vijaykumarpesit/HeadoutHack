@@ -16,9 +16,11 @@
 #import "UUInputFunctionView.h"
 #import "HDBot.h"
 #import "HDFriendsViewController.h"
+#import "HDPlacesTableViewCell.h"
+#import <UIImageView+WebCache.h>
 
 
-@interface HDChatViewController () <UITableViewDataSource,UITableViewDelegate,UUMessageCellDelegate,UUInputFunctionViewDelegate,UITextViewDelegate,HDFriendsViewControllerDelegate  >
+@interface HDChatViewController () <UITableViewDataSource,UITableViewDelegate,UUMessageCellDelegate,UUInputFunctionViewDelegate,UITextViewDelegate,HDFriendsViewControllerDelegate,HDPlacesTableViewCellDelegate>
 
 @property (nonatomic, strong) NSCache *avatarCache;
 @property (nonatomic, strong) UIImageView *avatarImageView;
@@ -58,6 +60,7 @@
     self.friendsTableVC.isInFriendsMode = YES;
     //Load the view
     [self.friendsTableVC view];
+    [self.chatTableView registerNib:[UINib nibWithNibName:@"HDPlacesTableViewCell" bundle:nil] forCellReuseIdentifier:@"placesCell"];
     
     NSString *chatID =  [[NSUserDefaults standardUserDefaults] valueForKey:@"chatID"];
     if (chatID) {
@@ -227,51 +230,70 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    UUMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
-    if (cell == nil) {
-        cell = [[UUMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CellID"];
-        cell.delegate = self;
-    }
-    
     HDMessage *hdMessage = [self.chat.messages objectAtIndex:indexPath.row];
-    UUMessageFrame * messageFrame = [[UUMessageFrame alloc] init];
-    UUMessage *message = [[UUMessage alloc] init];
-    //Change this profile pic depending on sender
-    NSString *profilePicPath = [[[HDDataManager sharedManager] currentUser] profilePicPath];
-    if (profilePicPath) {
-        message.strIcon = profilePicPath;
+    if (!hdMessage.placeName) {
+        UUMessageFrame * messageFrame = [[UUMessageFrame alloc] init];
+        UUMessage *message = [[UUMessage alloc] init];
+        //Change this profile pic depending on sender
+        NSString *profilePicPath = [[[HDDataManager sharedManager] currentUser] profilePicPath];
+        if (profilePicPath) {
+            message.strIcon = profilePicPath;
+        } else {
+            message.strIcon = @"";
+        }
+        if (hdMessage.senderID) {
+            message.strId = hdMessage.senderID;
+            
+        }
+        NSString *dateString = [NSDateFormatter localizedStringFromDate:hdMessage.timestamp
+                                                              dateStyle:NSDateFormatterShortStyle
+                                                              timeStyle:NSDateFormatterFullStyle];
+        message.strTime = dateString;
+        message.strName = hdMessage.senderName;
+        message.strContent = hdMessage.text;
+
+        if ([hdMessage isIncoming]) {
+            message.from = UUMessageFromOther;
+        } else {
+            message.from = UUMessageFromMe;
+        }
+
+        [messageFrame setMessage:message];
+        
+        UUMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellID"];
+        if (cell == nil) {
+            cell = [[UUMessageCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CellID"];
+            cell.delegate = self;
+        }
+        
+        [cell setMessageFrame:messageFrame];
+        return cell;
     } else {
-        message.strIcon = @"";
+        HDPlacesTableViewCell *placesCell = [tableView dequeueReusableCellWithIdentifier:@"placesCell"];
+        if (!placesCell) {
+            placesCell = [[HDPlacesTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PlacesCellID"];
+        }
+        [placesCell.placeImageView sd_setImageWithURL:[NSURL URLWithString:hdMessage.photRef] placeholderImage:nil];
+        placesCell.infoLabel.text = hdMessage.placeName;
+        [placesCell setLikesCount:hdMessage.likedUsers.count];
+        [placesCell setDislikesCount:hdMessage.disLikedUsers.count];
+        placesCell.delegate = self;
+        
+        return placesCell;
     }
-    if (hdMessage.senderID) {
-        message.strId = hdMessage.senderID;
-   
-    }
-    NSString *dateString = [NSDateFormatter localizedStringFromDate:hdMessage.timestamp
-                                                          dateStyle:NSDateFormatterShortStyle
-                                                          timeStyle:NSDateFormatterFullStyle];
-    message.strTime = dateString;
-    message.strName = hdMessage.senderName;
-    message.strContent = hdMessage.text;
-    
-    
-    if ([hdMessage isIncoming]) {
-        message.from = UUMessageFromOther;
-    } else {
-        message.from = UUMessageFromMe;
-    }
-    
-    [messageFrame setMessage:message];
-    [cell setMessageFrame:messageFrame];
-    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    UUMessage *message = [[UUMessage alloc] init];
-    UUMessageFrame * messageFrame = [[UUMessageFrame alloc] init];
-    [messageFrame setMessage:message];
-    return [messageFrame cellHeight];
+    HDMessage *hdMessage = [self.chat.messages objectAtIndex:indexPath.row];
+    if (!hdMessage.placeName) {
+        UUMessage *message = [[UUMessage alloc] init];
+        UUMessageFrame * messageFrame = [[UUMessageFrame alloc] init];
+        [messageFrame setMessage:message];
+        return [messageFrame cellHeight];
+    } else {
+        return 200;
+    }
 }
 
 #pragma mark - InputFunctionViewDelegate
@@ -347,7 +369,6 @@
     
 }
 
-
 - (void)didSelectHDuserData:(HDFriendData *)friendData {
     [self removeSearchTable];
     
@@ -390,4 +411,18 @@
         self.isBottomTablePopulated = NO;
     }
 }
+
+- (void)likeButtonTappedForCell:(HDPlacesTableViewCell *)cell
+{
+    NSIndexPath *indexPath = [self.chatTableView indexPathForCell:cell];
+    HDMessage *hdMessage = [self.chat.messages objectAtIndex:indexPath.row];
+
+    
+}
+
+- (void)dislikeButtonTappedForCell:(HDPlacesTableViewCell *)cell
+{
+    
+}
+
 @end

@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		AC8BCE261C66284800EED405 /* alone-travel-320x480-wallpaper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AC8BCE251C66284800EED405 /* alone-travel-320x480-wallpaper.jpg */; };
+		AC8BCE471C66EDF300EED405 /* HDPlacesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8BCE451C66EDF300EED405 /* HDPlacesTableViewCell.m */; };
+		AC8BCE481C66EDF300EED405 /* HDPlacesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC8BCE461C66EDF300EED405 /* HDPlacesTableViewCell.xib */; };
+		ACCB35461C67037300D9A71C /* dislike.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = ACCB35441C67037300D9A71C /* dislike.jpeg */; };
+		ACCB35471C67037300D9A71C /* like.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ACCB35451C67037300D9A71C /* like.jpg */; };
 		B1096C191C66F07A00F06DE1 /* HDChat.m in Sources */ = {isa = PBXBuildFile; fileRef = B1096C181C66F07A00F06DE1 /* HDChat.m */; };
 		B1295B191C6657F400F3021E /* HDChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1295B181C6657F400F3021E /* HDChatViewController.m */; };
 		B1295B1C1C665C2500F3021E /* HDMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B1295B1B1C665C2500F3021E /* HDMessage.m */; };
@@ -66,6 +70,11 @@
 /* Begin PBXFileReference section */
 		0F084FD0F1D204DA52303DDB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		AC8BCE251C66284800EED405 /* alone-travel-320x480-wallpaper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "alone-travel-320x480-wallpaper.jpg"; sourceTree = "<group>"; };
+		AC8BCE441C66EDF300EED405 /* HDPlacesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDPlacesTableViewCell.h; sourceTree = "<group>"; };
+		AC8BCE451C66EDF300EED405 /* HDPlacesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDPlacesTableViewCell.m; sourceTree = "<group>"; };
+		AC8BCE461C66EDF300EED405 /* HDPlacesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HDPlacesTableViewCell.xib; sourceTree = "<group>"; };
+		ACCB35441C67037300D9A71C /* dislike.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dislike.jpeg; sourceTree = "<group>"; };
+		ACCB35451C67037300D9A71C /* like.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = like.jpg; sourceTree = "<group>"; };
 		B1096C171C66F07A00F06DE1 /* HDChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDChat.h; sourceTree = "<group>"; };
 		B1096C181C66F07A00F06DE1 /* HDChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDChat.m; sourceTree = "<group>"; };
 		B1295B171C6657F400F3021E /* HDChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDChatViewController.h; sourceTree = "<group>"; };
@@ -190,6 +199,8 @@
 		AC8BCE241C66284800EED405 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				ACCB35441C67037300D9A71C /* dislike.jpeg */,
+				ACCB35451C67037300D9A71C /* like.jpg */,
 				AC8BCE251C66284800EED405 /* alone-travel-320x480-wallpaper.jpg */,
 			);
 			path = Images;
@@ -320,6 +331,9 @@
 				B1295BFA1C66983800F3021E /* HDBot.m */,
 				B1096C171C66F07A00F06DE1 /* HDChat.h */,
 				B1096C181C66F07A00F06DE1 /* HDChat.m */,
+				AC8BCE441C66EDF300EED405 /* HDPlacesTableViewCell.h */,
+				AC8BCE451C66EDF300EED405 /* HDPlacesTableViewCell.m */,
+				AC8BCE461C66EDF300EED405 /* HDPlacesTableViewCell.xib */,
 				B1689A4F1C65BE6A00436439 /* Assets.xcassets */,
 				B1689A4C1C65BE6A00436439 /* Main.storyboard */,
 				B1689A511C65BE6A00436439 /* LaunchScreen.storyboard */,
@@ -413,6 +427,7 @@
 				B1295BC71C66781F00F3021E /* chat_animation_white1.png in Resources */,
 				AC8BCE261C66284800EED405 /* alone-travel-320x480-wallpaper.jpg in Resources */,
 				B1689A4E1C65BE6A00436439 /* Main.storyboard in Resources */,
+				ACCB35461C67037300D9A71C /* dislike.jpeg in Resources */,
 				B1295BC31C66781F00F3021E /* chat_animation2.png in Resources */,
 				B1295BC11C66781F00F3021E /* chat_ipunt_message.png in Resources */,
 				B1295BBE1C66781F00F3021E /* chat_send_message.png in Resources */,
@@ -420,8 +435,10 @@
 				B1295C001C66CEBD00F3021E /* FriendsCell.xib in Resources */,
 				B1295BBA1C66781F00F3021E /* chatfrom_doctor_icon.png in Resources */,
 				B1295BBF1C66781F00F3021E /* Chat_record_circle.png in Resources */,
+				ACCB35471C67037300D9A71C /* like.jpg in Resources */,
 				B1295BDA1C66784600F3021E /* MJRefresh.bundle in Resources */,
 				B1295BBB1C66781F00F3021E /* chatfrom_bg_normal.png in Resources */,
+				AC8BCE481C66EDF300EED405 /* HDPlacesTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -502,6 +519,7 @@
 				B1295BF61C66916800F3021E /* HDFriendsViewController.m in Sources */,
 				B1295BD91C66784600F3021E /* MJRefreshBaseView.m in Sources */,
 				B1295BF11C66786900F3021E /* UUInputFunctionView.m in Sources */,
+				AC8BCE471C66EDF300EED405 /* HDPlacesTableViewCell.m in Sources */,
 				B1B77F091C662A4400A2F4EB /* HDFBLoginHandler.m in Sources */,
 				B1295B2B1C6674C600F3021E /* HDLike.m in Sources */,
 				B1295BD71C66784600F3021E /* MJRefreshFooterView.m in Sources */,
