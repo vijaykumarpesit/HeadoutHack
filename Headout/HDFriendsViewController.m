@@ -9,11 +9,13 @@
 #import "HDFriendsViewController.h"
 #import "FriendsCell.h"
 #import "HDFriendData.h"
+#import "HDUser.h"
+#import "HDDataManager.h"
 
 @interface HDFriendsViewController () <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray *dataArray;
+@property (nonatomic, strong) NSMutableArray *dataArray;
 
 @end
 
@@ -25,6 +27,10 @@
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     self.dataArray = [[NSMutableArray alloc] init];
     [self.tableView registerNib:[UINib nibWithNibName:@"FriendsCell" bundle:nil] forCellReuseIdentifier:@"reUseID"];
+    
+    if (self.isInFriendsMode) {
+        [self loadAllFriends];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -36,8 +42,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     FriendsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reUseID"];
-    HDFriendData *friendData = [self.dataArray objectAtIndex:indexPath.row];
-    cell.name.text = friendData.name;
+    if (self.isInFriendsMode) {
+        HDUser *user = [self.dataArray objectAtIndex:indexPath.row];
+        cell.name.text = user.name;
+    }
     return cell;
 }
 
@@ -45,11 +53,23 @@
     
     PFQuery *friendsQuery = [PFQuery queryWithClassName:@"HDUser"];
     
-        [friendsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    [friendsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
+        for (PFObject *object in objects) {
+            if (![object[@"emailID"] isEqualToString:[[[HDDataManager sharedManager] currentUser] emailID]]) {
+                HDUser *user = [[HDUser alloc] init];
+                user.name = object[@""];
+                user.emailID = object[@"emailID"];
+                user.userID = object[@"userID"];
+                user.profilePicPath = object[@"profilePicPath"];
+                [self.dataArray addObject:user];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableView reloadData];
+                });
+            }
             
-    
-        }];
+        }
+    }];
     
 }
 

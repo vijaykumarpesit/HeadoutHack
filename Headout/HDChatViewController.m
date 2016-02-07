@@ -15,6 +15,7 @@
 #import "UUMessageFrame.h"
 #import "UUInputFunctionView.h"
 #import "HDBot.h"
+#import "HDFriendsViewController.h"
 
 
 @interface HDChatViewController () <UITableViewDataSource,UITableViewDelegate,UUMessageCellDelegate,UUInputFunctionViewDelegate,UITextViewDelegate>
@@ -24,6 +25,8 @@
 @property (nonatomic, strong) UIImageView *avatarImageView;
 @property (strong, nonatomic)  UITableView *chatTableView;
 @property (nonatomic, strong) UUInputFunctionView *chatToolBar;
+@property (nonatomic, strong)  HDFriendsViewController*friendsTableVC;
+@property (nonatomic, strong) HDFriendsViewController *categoriesTableVC;
 
 @end
 
@@ -49,7 +52,12 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardChange:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardChange:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(tableViewScrollToBottom) name:UIKeyboardDidShowNotification object:nil];
-
+    
+    self.friendsTableVC = [[HDFriendsViewController alloc] initWithNibName:@"HDFriendsViewController" bundle:nil];
+    //Load the view
+    [self.friendsTableVC view];
+    
+    
     
 }
 
