@@ -373,7 +373,7 @@
 				TargetAttributes = {
 					B1689A3F1C65BE6A00436439 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 9S9UN3HHA9;
+						DevelopmentTeam = Q3X4VL27V6;
 					};
 				};
 			};
@@ -622,7 +622,7 @@
 			baseConfigurationReference = 0F084FD0F1D204DA52303DDB /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ilanchezhian K (NZE9Z9MX56)";
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = PrefixHeader.pch;
@@ -632,8 +632,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Headout",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hackathon.Headout;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hack.Headout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "9e2f1385-0a40-41b3-9246-9506dc32a777";
 			};
 			name = Debug;
 		};
@@ -642,7 +643,7 @@
 			baseConfigurationReference = C906D02A98FF1FF6181F15ED /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ilanchezhian K (NZE9Z9MX56)";
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = PrefixHeader.pch;
@@ -652,8 +653,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Headout",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hackathon.Headout;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hack.Headout;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "9e2f1385-0a40-41b3-9246-9506dc32a777";
 			};
 			name = Release;
 		};

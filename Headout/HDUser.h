@@ -16,6 +16,7 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *emailID;
 @property (nonatomic, copy) NSString *profilePicPath;
+@property (nonatomic, copy) NSString *deviceToken;
 
 - (instancetype)initWithPFUser:(PFUser*)parseUser;
 - (void)saveUser;

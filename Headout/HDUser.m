@@ -129,4 +129,14 @@ NSString * const kProfilePic = @"profilePic";
     return [[NSUserDefaults  standardUserDefaults] valueForKey:@"ProfilePic"];
 }
 
+- (void)setDeviceToken:(NSString *)deviceToken {
+    [[NSUserDefaults standardUserDefaults] setValue:deviceToken forKey:@"deviceToken"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)deviceToken {
+    return [[NSUserDefaults  standardUserDefaults] valueForKey:@"deviceToken"];
+}
+
+
 @end

@@ -7,10 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "JSQMessageData.h"
 #import "HDMessage.h"
 
-@interface HDMessageData : NSObject <JSQMessageData>
+@interface HDMessageData : NSObject 
 
 @property (nonatomic, strong) HDMessage *message;
 
