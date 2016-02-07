@@ -17,4 +17,8 @@
     return (![[[[HDDataManager sharedManager] currentUser] emailID] isEqualToString:self.senderMailID]);
 }
 
+- (NSString *)photoURL {
+    return [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=%@=%@",self.photRef,GOOGLE_API_KEY];
+}
+
 @end

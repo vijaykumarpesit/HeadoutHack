@@ -130,22 +130,26 @@
             [messageQuery whereKey:@"objectId" equalTo:messageObjectID.objectId];
             dispatch_async(serailQueue, ^{
                 PFObject *message = [messageQuery getFirstObject];
-                HDMessage *localMessage = [[HDMessage alloc] init];
-                localMessage.senderID = message[@"senderID"];
-                localMessage.senderMailID = message[@"senderMailID"];
-                localMessage.senderName = message[@"senderName"];
-                localMessage.timestamp = message[@"timestamp"];
-                localMessage.text = message[@"text"];
-                localMessage.filePath = message[@"filePath"];
-                localMessage.likedUsers = message[@"likedUsers"];
-                localMessage.disLikedUsers = message[@"disLikedUsers"];
-                localMessage.placeName = message[@"placeName"];
-                localMessage.ratings = message[@"rating"];
-                localMessage. vicinity = message[@"vicinity"];
-                [localChat.messages addObject:localMessage];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.chatTableView reloadData];
-                });
+                if (message) {
+                    HDMessage *localMessage = [[HDMessage alloc] init];
+                    localMessage.senderID = message[@"senderID"];
+                    localMessage.senderMailID = message[@"senderMailID"];
+                    localMessage.senderName = message[@"senderName"];
+                    localMessage.timestamp = message[@"timestamp"];
+                    localMessage.text = message[@"text"];
+                    localMessage.filePath = message[@"filePath"];
+                    localMessage.likedUsers = message[@"likedUsers"];
+                    localMessage.disLikedUsers = message[@"disLikedUsers"];
+                    localMessage.placeName = message[@"placeName"];
+                    localMessage.ratings = message[@"rating"];
+                    localMessage. vicinity = message[@"vicinity"];
+                    localMessage.photRef = message[@"photRef"];
+                    [localChat.messages addObject:localMessage];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.chatTableView reloadData];
+                    });
+ 
+                }
                 
             });
             
@@ -273,7 +277,7 @@
         if (!placesCell) {
             placesCell = [[HDPlacesTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PlacesCellID"];
         }
-        [placesCell.placeImageView sd_setImageWithURL:[NSURL URLWithString:hdMessage.photRef] placeholderImage:nil];
+        [placesCell.placeImageView sd_setImageWithURL:[NSURL URLWithString:[hdMessage photoURL]] placeholderImage:[UIImage imageNamed:@"quota.png"]];
         placesCell.infoLabel.text = hdMessage.placeName;
         [placesCell setLikesCount:hdMessage.likedUsers.count];
         [placesCell setDislikesCount:hdMessage.disLikedUsers.count];
@@ -307,6 +311,14 @@
                  NSMutableArray *topFive = [NSMutableArray arrayWithArray:[results subarrayWithRange:NSMakeRange(0, 5)]];
                  [HDBot hdMessagesFromPlaces:topFive onCompletion:^(NSArray *results) {
                      
+                     for (HDMessage *hdMessage in results) {
+                         [HDDataManager sendHDMessage:hdMessage toChat:self.chat.pfChat];
+                         [self.chat.messages addObject:hdMessage];
+                         [self.chatTableView reloadData];
+                         //[self tableViewScrollToBottom];
+
+
+                     }
                  }];
 
              }

@@ -32,7 +32,8 @@
         
         [placeArray addObject:message];
         
-        NSString *photoRef = place[@"photo_reference"];
+        NSDictionary *photos = [place[@"photos"] firstObject];
+        NSString *photoRef = photos[@"photo_reference"];
         message.photRef = photoRef;
         
 //        dispatch_async(serailQueue, ^{
@@ -47,6 +48,9 @@
 //            
 //            NSArray* details = [json objectForKey:@"results"];
 //        });
+        if (results) {
+            results (placeArray);
+        }
     }
 }
 

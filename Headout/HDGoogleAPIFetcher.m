@@ -101,18 +101,21 @@
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSData* data = [NSData dataWithContentsOfURL: googleRequestURL];
         NSError* error;
-        NSDictionary* json = [NSJSONSerialization
-                              JSONObjectWithData:data
-                              
-                              options:kNilOptions
-                              error:&error];
-        
-        //The results from Google will be an array obtained from the NSDictionary object with the key "results".
-        NSArray* places = [json objectForKey:@"results"];
-        
-        if (completion) {
-            completion(places);
+        if (data) {
+            NSDictionary* json = [NSJSONSerialization
+                                  JSONObjectWithData:data
+                                  
+                                  options:kNilOptions
+                                  error:&error];
+            
+            //The results from Google will be an array obtained from the NSDictionary object with the key "results".
+            NSArray* places = [json objectForKey:@"results"];
+            
+            if (completion) {
+                completion(places);
+            }
         }
+       
     });
 }
 

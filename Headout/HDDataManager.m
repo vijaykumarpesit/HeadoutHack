@@ -79,6 +79,10 @@
         message[@"vicinity"] = hdMessage.vicinity;
     }
     
+    if (hdMessage.photRef) {
+        message[@"photRef"] = hdMessage.photRef;
+    }
+    
     [message saveInBackground];
     
     NSArray *messages = nil;
