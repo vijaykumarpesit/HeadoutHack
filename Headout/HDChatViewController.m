@@ -19,7 +19,7 @@
 #import "HDPlacesTableViewCell.h"
 #import <UIImageView+WebCache.h>
 
-#define isHost = YES
+#define isHost = NO
 
 
 @interface HDChatViewController () <UITableViewDataSource,UITableViewDelegate,UUMessageCellDelegate,UUInputFunctionViewDelegate,UITextViewDelegate,HDFriendsViewControllerDelegate,HDPlacesTableViewCellDelegate>
@@ -150,6 +150,7 @@
                     localMessage.ratings = message[@"rating"];
                     localMessage. vicinity = message[@"vicinity"];
                     localMessage.photRef = message[@"photRef"];
+                    localMessage.objectID = message.objectId;
                     [localChat.messages addObject:localMessage];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self.chatTableView reloadData];
@@ -346,7 +347,10 @@
                          [HDDataManager sendHDMessage:hdMessage toChat:self.chat.pfChat];
                          [self.chat.messages addObject:hdMessage];
                          [self.chatTableView reloadData];
-                         //[self tableViewScrollToBottom];
+                         dispatch_async(dispatch_get_main_queue(), ^{
+                             [self tableViewScrollToBottom];
+
+                         });
 
 
                      }
@@ -493,30 +497,36 @@
         HDMessage *lastMessage = [self.chat.messages lastObject];
         PFQuery *latestChanges = [PFQuery queryWithClassName:@"message"];
         [latestChanges whereKey:@"updatedAt" greaterThan:lastMessage.timestamp];
-        [latestChanges whereKey:@"createdAt" greaterThan:lastMessage.timestamp];
 
         [latestChanges findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
             
             for(PFObject *message in objects) {
                 if (message) {
-                    HDMessage *localMessage = [[HDMessage alloc] init];
-                    localMessage.senderID = message[@"senderID"];
-                    localMessage.senderMailID = message[@"senderMailID"];
-                    localMessage.senderName = message[@"senderName"];
-                    localMessage.timestamp = message[@"timestamp"];
-                    localMessage.text = message[@"text"];
-                    localMessage.filePath = message[@"filePath"];
-                    localMessage.likedUsers = message[@"likedUsers"];
-                    localMessage.disLikedUsers = message[@"disLikedUsers"];
-                    localMessage.placeName = message[@"placeName"];
-                    localMessage.ratings = message[@"rating"];
-                    localMessage. vicinity = message[@"vicinity"];
-                    localMessage.photRef = message[@"photRef"];
-                    [self.chat.messages addObject:localMessage];
                     
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.chatTableView reloadData];
-                    });
+                    if (![self checkMessageExistsWiithID:message.objectId]) {
+                        HDMessage *localMessage = [[HDMessage alloc] init];
+                        localMessage.senderID = message[@"senderID"];
+                        localMessage.senderMailID = message[@"senderMailID"];
+                        localMessage.senderName = message[@"senderName"];
+                        localMessage.timestamp = message[@"timestamp"];
+                        localMessage.text = message[@"text"];
+                        localMessage.filePath = message[@"filePath"];
+                        localMessage.likedUsers = message[@"likedUsers"];
+                        localMessage.disLikedUsers = message[@"disLikedUsers"];
+                        localMessage.placeName = message[@"placeName"];
+                        localMessage.ratings = message[@"rating"];
+                        localMessage. vicinity = message[@"vicinity"];
+                        localMessage.photRef = message[@"photRef"];
+                        localMessage.objectID = message.objectId;
+                        [self.chat.messages addObject:localMessage];
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self.chatTableView reloadData];
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                [self tableViewScrollToBottom];
+                            });
+                        });
+                    }
                 }
             }
             
@@ -527,6 +537,18 @@
         self.chatIdentifier = chatID;
         [self createAndSyncChataIfNeeded];
     }
+}
+
+- (BOOL)checkMessageExistsWiithID:(NSString *)identifier {
+    
+   __block BOOL isPresent = NO;
+    [self.chat.messages enumerateObjectsUsingBlock:^(HDMessage  *message, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([message.objectID isEqualToString:identifier]) {
+            *stop = YES;
+            isPresent = YES;
+        }
+    }];
+    return  isPresent;
 }
 
 - (void)updateMessageWithID:(NSString *)messageID {
@@ -550,6 +572,7 @@
             localMessage.ratings = message[@"rating"];
             localMessage. vicinity = message[@"vicinity"];
             localMessage.photRef = message[@"photRef"];
+            localMessage.objectID = message.objectId;
             [self.chat.messages addObject:localMessage];
         }
         
