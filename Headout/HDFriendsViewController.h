@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HDFriendsViewController : NSObject
+@interface HDFriendsViewController : UIViewController
+
+@property (nonatomic, assign) BOOL isInFriendsMode;
 
 @end

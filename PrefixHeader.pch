@@ -10,6 +10,8 @@
 
 #define GOOGLE_API_KEY @"AIzaSyD78BsC9fuUzdIbAyCcGA0nQ_pWWvaWnUE"
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
+
 
 //** 沙盒路径 ***********************************************************************************
 #define PATH_OF_APP_HOME    NSHomeDirectory()

@@ -28,20 +28,25 @@
         HDMessage *message = [[HDMessage alloc] init];
         message.placeName = place[@"name"];
         message.ratings = place[@"rating"];
+        message.vicinity = place[@"vicinity"];
+        
         [placeArray addObject:message];
         
-        dispatch_async(serailQueue, ^{
-            NSString *url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?placeid=%@&key=%@",placeID, GOOGLE_API_KEY];
-            NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-            NSError* error;
-            NSDictionary* json = [NSJSONSerialization
-                                  JSONObjectWithData:data
-                                  
-                                  options:kNilOptions
-                                  error:&error];
-            
-            NSArray* details = [json objectForKey:@"results"];
-        });
+        NSString *photoRef = place[@"photo_reference"];
+        message.photRef = photoRef;
+        
+//        dispatch_async(serailQueue, ^{
+//            NSString *url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/details/json?placeid=%@&key=%@",placeID, GOOGLE_API_KEY];
+//            NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+//            NSError* error;
+//            NSDictionary* json = [NSJSONSerialization
+//                                  JSONObjectWithData:data
+//                                  
+//                                  options:kNilOptions
+//                                  error:&error];
+//            
+//            NSArray* details = [json objectForKey:@"results"];
+//        });
     }
 }
 

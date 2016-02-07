@@ -46,6 +46,9 @@
 		B1295BF61C66916800F3021E /* HDFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1295BF51C66916800F3021E /* HDFriendsViewController.m */; };
 		B1295BF81C6691B400F3021E /* HDFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1295BF71C6691B400F3021E /* HDFriendsViewController.xib */; };
 		B1295BFB1C66983800F3021E /* HDBot.m in Sources */ = {isa = PBXBuildFile; fileRef = B1295BFA1C66983800F3021E /* HDBot.m */; };
+		B1295BFF1C66CEBD00F3021E /* FriendsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B1295BFD1C66CEBD00F3021E /* FriendsCell.m */; };
+		B1295C001C66CEBD00F3021E /* FriendsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1295BFE1C66CEBD00F3021E /* FriendsCell.xib */; };
+		B1295C031C66D14800F3021E /* HDFriendData.m in Sources */ = {isa = PBXBuildFile; fileRef = B1295C021C66D14800F3021E /* HDFriendData.m */; };
 		B1689A451C65BE6A00436439 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B1689A441C65BE6A00436439 /* main.m */; };
 		B1689A481C65BE6A00436439 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B1689A471C65BE6A00436439 /* AppDelegate.m */; };
 		B1689A4B1C65BE6A00436439 /* HDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1689A4A1C65BE6A00436439 /* HDLoginViewController.m */; };
@@ -123,6 +126,11 @@
 		B1295BF71C6691B400F3021E /* HDFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HDFriendsViewController.xib; sourceTree = "<group>"; };
 		B1295BF91C66983800F3021E /* HDBot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDBot.h; sourceTree = "<group>"; };
 		B1295BFA1C66983800F3021E /* HDBot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDBot.m; sourceTree = "<group>"; };
+		B1295BFC1C66CEBD00F3021E /* FriendsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsCell.h; sourceTree = "<group>"; };
+		B1295BFD1C66CEBD00F3021E /* FriendsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsCell.m; sourceTree = "<group>"; };
+		B1295BFE1C66CEBD00F3021E /* FriendsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FriendsCell.xib; sourceTree = "<group>"; };
+		B1295C011C66D14800F3021E /* HDFriendData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDFriendData.h; sourceTree = "<group>"; };
+		B1295C021C66D14800F3021E /* HDFriendData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDFriendData.m; sourceTree = "<group>"; };
 		B1689A401C65BE6A00436439 /* Headout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Headout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1689A441C65BE6A00436439 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B1689A461C65BE6A00436439 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -280,6 +288,11 @@
 				B1295BF41C66916800F3021E /* HDFriendsViewController.h */,
 				B1295BF51C66916800F3021E /* HDFriendsViewController.m */,
 				B1295BF71C6691B400F3021E /* HDFriendsViewController.xib */,
+				B1295C011C66D14800F3021E /* HDFriendData.h */,
+				B1295C021C66D14800F3021E /* HDFriendData.m */,
+				B1295BFC1C66CEBD00F3021E /* FriendsCell.h */,
+				B1295BFD1C66CEBD00F3021E /* FriendsCell.m */,
+				B1295BFE1C66CEBD00F3021E /* FriendsCell.xib */,
 				B1295B291C6674C600F3021E /* HDLike.h */,
 				B1295B2A1C6674C600F3021E /* HDLike.m */,
 				B1295B231C66600400F3021E /* HDMessageData.h */,
@@ -399,6 +412,7 @@
 				B1295BC11C66781F00F3021E /* chat_ipunt_message.png in Resources */,
 				B1295BBE1C66781F00F3021E /* chat_send_message.png in Resources */,
 				B1295BC01C66781F00F3021E /* chat_message_back.png in Resources */,
+				B1295C001C66CEBD00F3021E /* FriendsCell.xib in Resources */,
 				B1295BBA1C66781F00F3021E /* chatfrom_doctor_icon.png in Resources */,
 				B1295BBF1C66781F00F3021E /* Chat_record_circle.png in Resources */,
 				B1295BDA1C66784600F3021E /* MJRefresh.bundle in Resources */,
@@ -468,6 +482,7 @@
 				B1295B251C66600400F3021E /* HDMessageData.m in Sources */,
 				B1295BD61C66784600F3021E /* MJRefreshHeaderView.m in Sources */,
 				B1295B1C1C665C2500F3021E /* HDMessage.m in Sources */,
+				B1295BFF1C66CEBD00F3021E /* FriendsCell.m in Sources */,
 				B1295BEF1C66786900F3021E /* UUMessageCell.m in Sources */,
 				B1B77F0C1C662F5100A2F4EB /* HDDataManager.m in Sources */,
 				B1689A481C65BE6A00436439 /* AppDelegate.m in Sources */,
@@ -485,6 +500,7 @@
 				B1295B2B1C6674C600F3021E /* HDLike.m in Sources */,
 				B1295BD71C66784600F3021E /* MJRefreshFooterView.m in Sources */,
 				B1295BEE1C66786900F3021E /* UUMessageContentButton.m in Sources */,
+				B1295C031C66D14800F3021E /* HDFriendData.m in Sources */,
 				B1295BA81C6677F600F3021E /* Mp3Recorder.m in Sources */,
 				B1B77F061C6625DE00A2F4EB /* HDUser.m in Sources */,
 				B1295BF01C66786900F3021E /* UUMessage.m in Sources */,
