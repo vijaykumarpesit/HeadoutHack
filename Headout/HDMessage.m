@@ -7,7 +7,14 @@
 //
 
 #import "HDMessage.h"
+#import "HDDataManager.h"
+
 
 @implementation HDMessage
+
+- (BOOL)isIncoming {
+    
+    return (![[[[HDDataManager sharedManager] currentUser] emailID] isEqualToString:self.senderMailID]);
+}
 
 @end

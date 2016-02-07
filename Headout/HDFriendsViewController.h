@@ -7,10 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HDFriendData.h"
+
+@protocol HDFriendsViewControllerDelegate <NSObject>
+
+- (void)didSelectHDuserData:(HDFriendData *)friendData;
+
+@end
 
 @interface HDFriendsViewController : UIViewController
 
 @property (nonatomic, assign) BOOL isInFriendsMode;
 
+@property (nonatomic, weak) id <HDFriendsViewControllerDelegate> delegate;
 
 @end

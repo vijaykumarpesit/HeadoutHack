@@ -36,12 +36,15 @@ NSString * const kProfilePic = @"profilePic";
     if (userID) {
         [self.parseUser setObject:userID forKey:kKeyUserId];
         [[NSUserDefaults standardUserDefaults] setValue:userID forKey:kKeyUserId];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+
 
     }
 }
 
 - (NSString*)userID {
     return [[NSUserDefaults  standardUserDefaults] valueForKey:kKeyUserId];
+    
 }
 
 
@@ -49,6 +52,8 @@ NSString * const kProfilePic = @"profilePic";
 - (void)setName:(NSString*)Name {
     [self.parseUser setObject:Name forKey:kKeyName];
     [[NSUserDefaults standardUserDefaults] setValue:Name forKey:kKeyName];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
 }
 
 - (NSString*)name {
@@ -59,6 +64,8 @@ NSString * const kProfilePic = @"profilePic";
 - (void)setEmailID:(NSString *)emailID {
     [self.parseUser setObject:emailID forKey:kEmailID];
     [[NSUserDefaults standardUserDefaults] setValue:emailID forKey:kEmailID];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
 
 }
 
@@ -112,6 +119,7 @@ NSString * const kProfilePic = @"profilePic";
     [imageFile saveInBackground];
     self.parseUser[@"ProfilePic"] = imageFile;
     [[NSUserDefaults standardUserDefaults] setValue:imageFile.url forKey:@"ProfilePic"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 
     [self.parseUser saveInBackground];
 }

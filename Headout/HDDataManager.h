@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "HDUser.h"
+#import "HDMessage.h"
 
 @interface HDDataManager : NSObject
 
 + (HDDataManager *)sharedManager;
+
++ (void)sendHDMessage:(HDMessage *)hdMessage toChat:(PFObject *)chat;
 
 @property (nonatomic, strong)  HDUser *currentUser;
 

@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HDChat.h"
 
 @interface HDChatViewController : UIViewController
+
+@property (nonatomic, strong)NSString *chatIdentifier;
+
 
 @end

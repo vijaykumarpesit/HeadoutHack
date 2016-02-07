@@ -38,6 +38,7 @@
                   clientKey:@"uIaegiayIkDJsaMkZ7RiRw8i6odqBODe4aL6cwtX"];
     
     [self configureRootVC];
+    
     return YES;
 }
 
@@ -99,5 +100,6 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
         [HDFBLoginHandler fetchAndSaveMyInfo];
     }
 }
+
 
 @end

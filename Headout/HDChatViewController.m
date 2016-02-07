@@ -20,7 +20,6 @@
 
 @interface HDChatViewController () <UITableViewDataSource,UITableViewDelegate,UUMessageCellDelegate,UUInputFunctionViewDelegate,UITextViewDelegate>
 
-@property (nonatomic, strong) NSMutableArray *messages;
 @property (nonatomic, strong) NSCache *avatarCache;
 @property (nonatomic, strong) UIImageView *avatarImageView;
 @property (strong, nonatomic)  UITableView *chatTableView;
@@ -29,6 +28,7 @@
 @property (nonatomic, strong) HDFriendsViewController *categoriesTableVC;
 @property (nonatomic, assign) CGRect kyFrame;
 @property (nonatomic, assign) BOOL isBottomTablePopulated;
+@property (nonatomic, strong) HDChat *chat;
 @end
 
 @implementation HDChatViewController
@@ -42,9 +42,8 @@
     self.chatTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self loadAllMessages];
-    self.messages = [[NSMutableArray alloc] init];
     self.avatarCache = [[NSCache alloc] init];
-    [self loadDummyData];
+    //[self loadDummyData];
     [self.chatTableView setDelegate:self];
     [self.chatTableView setDataSource:self];
     [self loadBaseViewsAndData];
@@ -59,8 +58,23 @@
     //Load the view
     [self.friendsTableVC view];
     
-    
-    
+    NSString *chatID =  [[NSUserDefaults standardUserDefaults] valueForKey:@"chatID"];
+    if (chatID) {
+        self.chatIdentifier = chatID;
+    } else {
+        self.chatIdentifier = [self GetUUID];
+        [[NSUserDefaults standardUserDefaults] setValue:self.chatIdentifier forKey:@"chatID"];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self createAndSyncChataIfNeeded];
+}
+
+- (NSString *)GetUUID
+{
+    CFUUIDRef theUUID = CFUUIDCreate(NULL);
+    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
+    CFRelease(theUUID);
+    return (__bridge NSString *)string;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -85,6 +99,62 @@
 //    
 }
 
+- (void)createAndSyncChataIfNeeded {
+    
+    PFQuery *query = [PFQuery queryWithClassName:@"HDChat"];
+    [query whereKey:@"identifier" equalTo:self.chatIdentifier];
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        
+        __block PFObject *chat = nil;
+        if (objects.count) {
+            chat = [objects lastObject];
+        } else {
+            chat = [PFObject objectWithClassName:@"HDChat"];
+        }
+        HDChat *localChat = [[HDChat alloc] init];
+        localChat.identifier = chat[@"identifier"];
+        localChat.partcipants = chat[@"participants"];
+        localChat.pfChat = chat;
+        localChat.identifier = self.chatIdentifier;
+        self.chat = localChat;
+        NSArray *messages = chat[@"messages"];
+        
+        dispatch_queue_t serailQueue = dispatch_queue_create("syncQueue", 0);
+        
+        for (PFObject *messageObjectID in messages) {
+            PFQuery *messageQuery=[PFQuery queryWithClassName:@"message"];
+            [messageQuery whereKey:@"objectId" equalTo:messageObjectID.objectId];
+            dispatch_async(serailQueue, ^{
+                PFObject *message = [messageQuery getFirstObject];
+                HDMessage *localMessage = [[HDMessage alloc] init];
+                localMessage.senderID = message[@"senderID"];
+                localMessage.senderMailID = message[@"senderMailID"];
+                localMessage.senderName = message[@"senderName"];
+                localMessage.timestamp = message[@"timestamp"];
+                localMessage.text = message[@"text"];
+                localMessage.filePath = message[@"filePath"];
+                localMessage.likedUsers = message[@"likedUsers"];
+                localMessage.disLikedUsers = message[@"disLikedUsers"];
+                localMessage.placeName = message[@"placeName"];
+                localMessage.ratings = message[@"rating"];
+                localMessage. vicinity = message[@"vicinity"];
+                [localChat.messages addObject:localMessage];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.chatTableView reloadData];
+                });
+                
+            });
+            
+            
+        }
+        chat[@"identifier"] = self.chatIdentifier;
+        NSString *emailID = [[[HDDataManager sharedManager] currentUser] emailID];
+        chat[@"participants"] = @[];
+        [chat saveInBackground];
+    }];
+    
+    
+}
 
 - (void)loadBaseViewsAndData
 {
@@ -99,22 +169,22 @@
 
 - (void)tableViewScrollToBottom
 {
-    if (self.messages.count==0)
+    if (self.chat.messages.count==0)
         return;
     
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.messages.count-1 inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.chat.messages.count-1 inSection:0];
     [self.chatTableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 - (void)loadDummyData {
     
-    for (int i =0; i< 10; i ++) {
-        HDMessage *message = [[HDMessage alloc] init];
-        message.text = @"Vijay";
-        message.timestamp = [NSDate date];
-        message.senderName = @"Dummy";
-        message.isIncoming = NO;
-        [self.messages addObject:message];
-    }
+//    for (int i =0; i< 10; i ++) {
+//        HDMessage *message = [[HDMessage alloc] init];
+//        message.text = @"Vijay";
+//        message.timestamp = [NSDate date];
+//        message.senderName = @"Dummy";
+//        message.isIncoming = NO;
+//        [self.messages addObject:message];
+//    }
     
 }
 
@@ -151,7 +221,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.messages.count;
+    return self.chat.messages.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -162,7 +232,7 @@
         cell.delegate = self;
     }
     
-    HDMessage *hdMessage = [self.messages objectAtIndex:indexPath.row];
+    HDMessage *hdMessage = [self.chat.messages objectAtIndex:indexPath.row];
     UUMessageFrame * messageFrame = [[UUMessageFrame alloc] init];
     UUMessage *message = [[UUMessage alloc] init];
     //Change this profile pic depending on sender
@@ -172,14 +242,24 @@
     } else {
         message.strIcon = @"";
     }
-    message.strId = hdMessage.senderID;
+    if (hdMessage.senderID) {
+        message.strId = hdMessage.senderID;
+   
+    }
     NSString *dateString = [NSDateFormatter localizedStringFromDate:hdMessage.timestamp
                                                           dateStyle:NSDateFormatterShortStyle
                                                           timeStyle:NSDateFormatterFullStyle];
     message.strTime = dateString;
     message.strName = hdMessage.senderName;
     message.strContent = hdMessage.text;
-    message.from = UUMessageFromOther;
+    
+    
+    if ([hdMessage isIncoming]) {
+        message.from = UUMessageFromOther;
+    } else {
+        message.from = UUMessageFromMe;
+    }
+    
     [messageFrame setMessage:message];
     [cell setMessageFrame:messageFrame];
     return cell;
@@ -216,11 +296,13 @@
         hdMessage.text = message;
         hdMessage.senderID = [[[HDDataManager sharedManager] currentUser] userID];
         hdMessage.senderName = [[[HDDataManager sharedManager] currentUser] name];
+        hdMessage.senderMailID = [[[HDDataManager sharedManager] currentUser] emailID];
         hdMessage.timestamp = [NSDate date];
         funcView.TextViewInput.text = @"";
-        [self.messages addObject:hdMessage];
+        [self.chat.messages addObject:hdMessage];
         [self.chatTableView reloadData];
         [self tableViewScrollToBottom];
+        [HDDataManager sendHDMessage:hdMessage toChat:self.chat.pfChat];
     }
     
     //[[StateMachineManager sharedInstance] userRepliedWithText:message];
@@ -256,5 +338,17 @@
     }
 
     
+}
+
+
+- (void)didSelectHDuserData:(HDFriendData *)friendData {
+    [self removeSearchTable];
+}
+
+- (void)removeSearchTable {
+    if (self.isBottomTablePopulated) {
+        [self.friendsTableVC.view removeFromSuperview];
+        self.isBottomTablePopulated = NO;
+    }
 }
 @end

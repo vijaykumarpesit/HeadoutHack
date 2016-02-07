@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AC8BCE261C66284800EED405 /* alone-travel-320x480-wallpaper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AC8BCE251C66284800EED405 /* alone-travel-320x480-wallpaper.jpg */; };
+		B1096C191C66F07A00F06DE1 /* HDChat.m in Sources */ = {isa = PBXBuildFile; fileRef = B1096C181C66F07A00F06DE1 /* HDChat.m */; };
 		B1295B191C6657F400F3021E /* HDChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1295B181C6657F400F3021E /* HDChatViewController.m */; };
 		B1295B1C1C665C2500F3021E /* HDMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B1295B1B1C665C2500F3021E /* HDMessage.m */; };
 		B1295B251C66600400F3021E /* HDMessageData.m in Sources */ = {isa = PBXBuildFile; fileRef = B1295B241C66600400F3021E /* HDMessageData.m */; };
@@ -65,6 +66,8 @@
 /* Begin PBXFileReference section */
 		0F084FD0F1D204DA52303DDB /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		AC8BCE251C66284800EED405 /* alone-travel-320x480-wallpaper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "alone-travel-320x480-wallpaper.jpg"; sourceTree = "<group>"; };
+		B1096C171C66F07A00F06DE1 /* HDChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDChat.h; sourceTree = "<group>"; };
+		B1096C181C66F07A00F06DE1 /* HDChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDChat.m; sourceTree = "<group>"; };
 		B1295B171C6657F400F3021E /* HDChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDChatViewController.h; sourceTree = "<group>"; };
 		B1295B181C6657F400F3021E /* HDChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDChatViewController.m; sourceTree = "<group>"; };
 		B1295B1A1C665C2500F3021E /* HDMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDMessage.h; sourceTree = "<group>"; };
@@ -315,6 +318,8 @@
 				B1B77F0B1C662F5100A2F4EB /* HDDataManager.m */,
 				B1295BF91C66983800F3021E /* HDBot.h */,
 				B1295BFA1C66983800F3021E /* HDBot.m */,
+				B1096C171C66F07A00F06DE1 /* HDChat.h */,
+				B1096C181C66F07A00F06DE1 /* HDChat.m */,
 				B1689A4F1C65BE6A00436439 /* Assets.xcassets */,
 				B1689A4C1C65BE6A00436439 /* Main.storyboard */,
 				B1689A511C65BE6A00436439 /* LaunchScreen.storyboard */,
@@ -476,6 +481,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1295BFB1C66983800F3021E /* HDBot.m in Sources */,
+				B1096C191C66F07A00F06DE1 /* HDChat.m in Sources */,
 				B1689A4B1C65BE6A00436439 /* HDLoginViewController.m in Sources */,
 				B1295BF21C66786900F3021E /* UUImageAvatarBrowser.m in Sources */,
 				B1295BF31C66786900F3021E /* UUAVAudioPlayer.m in Sources */,

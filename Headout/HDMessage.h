@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) NSString *senderID;
 @property (nonatomic, strong) NSString *senderName;
+@property (nonatomic, strong) NSString *senderMailID;
 @property (nonatomic, strong) NSDate *timestamp;
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic, assign) BOOL isIncoming;

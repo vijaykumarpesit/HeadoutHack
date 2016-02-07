@@ -56,6 +56,12 @@
     return 40;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    HDFriendData *data = [self.dataArray objectAtIndex:indexPath.row];
+    [self.delegate didSelectHDuserData:data];
+}
+
 - (void)loadAllFriends {
     
     PFQuery *friendsQuery = [PFQuery queryWithClassName:@"HDUser"];
