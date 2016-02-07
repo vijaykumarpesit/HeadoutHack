@@ -61,16 +61,16 @@
     //Load the view
     [self.friendsTableVC view];
     [self.chatTableView registerNib:[UINib nibWithNibName:@"HDPlacesTableViewCell" bundle:nil] forCellReuseIdentifier:@"placesCell"];
-//    
+    
 //    NSString *chatID =  [[NSUserDefaults standardUserDefaults] valueForKey:@"chatID"];
 //    if (chatID) {
 //        self.chatIdentifier = chatID;
 //    } else {
-//        self.chatIdentifier = [self GetUUID];
-//        [[NSUserDefaults standardUserDefaults] setValue:self.chatIdentifier forKey:@"chatID"];
-//    }
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-//    [self createAndSyncChataIfNeeded];
+        self.chatIdentifier = [self GetUUID];
+        [[NSUserDefaults standardUserDefaults] setValue:self.chatIdentifier forKey:@"chatID"];
+    //}
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self createAndSyncChataIfNeeded];
 }
 
 - (NSString *)GetUUID
@@ -117,7 +117,7 @@
         }
         HDChat *localChat = [[HDChat alloc] init];
         localChat.identifier = chat[@"identifier"];
-        localChat.partcipants = chat[@"participants"];
+        localChat.partcipants = chat[@"partcipants"];
         localChat.pfChat = chat;
         localChat.identifier = self.chatIdentifier;
         self.chat = localChat;
@@ -157,7 +157,23 @@
         }
         chat[@"identifier"] = self.chatIdentifier;
         NSString *emailID = [[[HDDataManager sharedManager] currentUser] emailID];
-        chat[@"participants"] = @[];
+        NSArray *array = chat[@"partcipants"];
+        BOOL isPresent = NO;
+        
+        for (NSDictionary *dict in array) {
+            if ([dict[@"emailID"] isEqualToString:[[[HDDataManager sharedManager] currentUser] emailID]]) {
+                isPresent = YES;
+                break;
+            }
+        }
+        NSMutableArray *arr = [[NSMutableArray alloc] init];
+        if (!isPresent) {
+            [arr addObject:[HDDataManager myParticipant]];
+        }
+        if (array.count) {
+            [arr addObjectsFromArray:array];
+        }
+        chat[@"partcipants"] = arr;
         [chat saveInBackground];
     }];
     
@@ -349,6 +365,7 @@
     self.chatToolBar.TextViewInput.text = @"";
 
     [HDDataManager sendHDMessage:hdMessage toChat:self.chat.pfChat];
+    
 
 }
 
@@ -407,6 +424,20 @@
     if (array) {
         [updatedArray addObjectsFromArray:array];
     }
+    BOOL isPresent = NO;
+    
+    for (NSDictionary *dict in array) {
+        if ([dict[@"emailID"] isEqualToString:friendData.emailID]) {
+            isPresent = YES;
+            break;
+        }
+    }
+    
+    if (!isPresent) {
+        [updatedArray addObject:userDict];
+
+    }
+    
     self.chat.pfChat[@"partcipants"] = updatedArray;
     [self.chat.pfChat saveInBackground];
     

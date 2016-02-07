@@ -16,6 +16,8 @@
 
 + (void)sendHDMessage:(HDMessage *)hdMessage toChat:(PFObject *)chat;
 
++ (NSDictionary *)myParticipant;
+
 @property (nonatomic, strong)  HDUser *currentUser;
 
 @end

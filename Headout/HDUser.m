@@ -116,12 +116,13 @@ NSString * const kProfilePic = @"profilePic";
 - (void)setProfilePic:(UIImage *)profilePic {
     NSData *imageData = UIImagePNGRepresentation(profilePic);
     PFFile *imageFile = [PFFile fileWithName:[NSString stringWithFormat:@"profilePic.png"] data:imageData];
-    [imageFile saveInBackground];
-    self.parseUser[@"ProfilePic"] = imageFile;
-    [[NSUserDefaults standardUserDefaults] setValue:imageFile.url forKey:@"ProfilePic"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        self.parseUser[@"ProfilePic"] = imageFile;
+        [[NSUserDefaults standardUserDefaults] setValue:imageFile.url forKey:@"ProfilePic"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self.parseUser saveInBackground];
+    }];
 
-    [self.parseUser saveInBackground];
 }
 
 - (NSString *)profilePicPath {

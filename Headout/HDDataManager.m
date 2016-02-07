@@ -96,6 +96,32 @@
     [updatedMessages addObject:message];
     chat[@"messages"] = updatedMessages;
     [chat saveInBackground];
+    
+   NSArray *part =  chat[@"partcipants"];
+    for(NSDictionary *dict in part) {
+        NSString *deviceToken = dict[@"deviceToken"];
+        NSString *email = [[[HDDataManager sharedManager] currentUser] emailID];
+        if (![dict[@"emailID"] isEqualToString:email]) {
+            if (deviceToken) {
+                PFQuery *query = [PFQuery queryWithClassName:@"SubscribeService"];
+                [query whereKey:@"deviceToken" equalTo:deviceToken];
+                [PFPush sendPushMessageToQuery:query withMessage: [NSString stringWithFormat:@"chat%@",chat[@"identifier"]] error:nil];
+            }
+        }
+        
+    }
+    
+    
 }
-
++ (NSDictionary *)myParticipant {
+    
+    NSMutableDictionary *userDict = [[NSMutableDictionary alloc] init];
+    HDUser *user =  [[HDDataManager sharedManager] currentUser];
+    [userDict setValue:user.userID forKey:@"userID"];
+    [userDict setValue:user.name forKey:@"name"];
+    [userDict setValue:user.emailID forKey:@"emailID"];
+    [userDict setValue:user.profilePicPath forKey:@"profilePicPath"];
+    [userDict setValue:user.deviceToken forKey:@"deviceToken"];
+    return userDict;
+}
 @end
