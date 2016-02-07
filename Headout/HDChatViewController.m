@@ -19,7 +19,7 @@
 #import "HDPlacesTableViewCell.h"
 #import <UIImageView+WebCache.h>
 
-#define isHost = NO
+#define isHost = YES
 
 
 @interface HDChatViewController () <UITableViewDataSource,UITableViewDelegate,UUMessageCellDelegate,UUInputFunctionViewDelegate,UITextViewDelegate,HDFriendsViewControllerDelegate,HDPlacesTableViewCellDelegate>
@@ -76,6 +76,8 @@
         [self createAndSyncChataIfNeeded];
     
 #endif
+    
+    self.navigationController.title = @"Smart Planner";
 
 }
 
@@ -312,7 +314,7 @@
         if (!placesCell) {
             placesCell = [[HDPlacesTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PlacesCellID"];
         }
-        [placesCell.placeImageView sd_setImageWithURL:[NSURL URLWithString:[hdMessage photoURL]] placeholderImage:[UIImage imageNamed:@"quota.png"]];
+        [placesCell.placeImageView sd_setImageWithURL:[NSURL URLWithString:[hdMessage photoURL]] placeholderImage:[UIImage imageNamed:@"image4copy.png"]];
         placesCell.infoLabel.text = hdMessage.placeName;
         [placesCell setLikesCount:hdMessage.likedUsers.count];
         [placesCell setDislikesCount:hdMessage.disLikedUsers.count];

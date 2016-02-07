@@ -13,6 +13,7 @@
 		ACCB35461C67037300D9A71C /* dislike.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = ACCB35441C67037300D9A71C /* dislike.jpeg */; };
 		ACCB35471C67037300D9A71C /* like.jpg in Resources */ = {isa = PBXBuildFile; fileRef = ACCB35451C67037300D9A71C /* like.jpg */; };
 		B102CE6A1C6721EF00E60F65 /* quota.png in Resources */ = {isa = PBXBuildFile; fileRef = B102CE691C6721EF00E60F65 /* quota.png */; };
+		B102CE6D1C675E4700E60F65 /* image4copy.png in Resources */ = {isa = PBXBuildFile; fileRef = B102CE6C1C675E4700E60F65 /* image4copy.png */; };
 		B1096C191C66F07A00F06DE1 /* HDChat.m in Sources */ = {isa = PBXBuildFile; fileRef = B1096C181C66F07A00F06DE1 /* HDChat.m */; };
 		B1295B191C6657F400F3021E /* HDChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1295B181C6657F400F3021E /* HDChatViewController.m */; };
 		B1295B1C1C665C2500F3021E /* HDMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B1295B1B1C665C2500F3021E /* HDMessage.m */; };
@@ -77,6 +78,7 @@
 		ACCB35441C67037300D9A71C /* dislike.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = dislike.jpeg; sourceTree = "<group>"; };
 		ACCB35451C67037300D9A71C /* like.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = like.jpg; sourceTree = "<group>"; };
 		B102CE691C6721EF00E60F65 /* quota.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = quota.png; sourceTree = "<group>"; };
+		B102CE6C1C675E4700E60F65 /* image4copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image4copy.png; sourceTree = "<group>"; };
 		B1096C171C66F07A00F06DE1 /* HDChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDChat.h; sourceTree = "<group>"; };
 		B1096C181C66F07A00F06DE1 /* HDChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDChat.m; sourceTree = "<group>"; };
 		B1295B171C6657F400F3021E /* HDChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDChatViewController.h; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 				B1689A4C1C65BE6A00436439 /* Main.storyboard */,
 				B1689A511C65BE6A00436439 /* LaunchScreen.storyboard */,
 				B102CE691C6721EF00E60F65 /* quota.png */,
+				B102CE6C1C675E4700E60F65 /* image4copy.png */,
 				B1B77EFC1C65DCFE00A2F4EB /* PrefixHeader.pch */,
 				B1689A541C65BE6A00436439 /* Info.plist */,
 				AC8BCE241C66284800EED405 /* Images */,
@@ -434,6 +437,7 @@
 				B1295BC31C66781F00F3021E /* chat_animation2.png in Resources */,
 				B1295BC11C66781F00F3021E /* chat_ipunt_message.png in Resources */,
 				B1295BBE1C66781F00F3021E /* chat_send_message.png in Resources */,
+				B102CE6D1C675E4700E60F65 /* image4copy.png in Resources */,
 				B1295BC01C66781F00F3021E /* chat_message_back.png in Resources */,
 				B102CE6A1C6721EF00E60F65 /* quota.png in Resources */,
 				B1295C001C66CEBD00F3021E /* FriendsCell.xib in Resources */,
