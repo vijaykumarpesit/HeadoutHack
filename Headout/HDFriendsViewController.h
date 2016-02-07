@@ -21,4 +21,6 @@
 
 @property (nonatomic, weak) id <HDFriendsViewControllerDelegate> delegate;
 
+- (void)reloadFriendList;
+
 @end

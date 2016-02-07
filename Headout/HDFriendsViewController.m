@@ -58,9 +58,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     HDFriendData *data = [self.dataArray objectAtIndex:indexPath.row];
-    [self.delegate didSelectHDuserData:data];
     [self.dataArray removeObjectAtIndex:indexPath.row];
+    [self.delegate didSelectHDuserData:data];
 }
 
 - (void)loadAllFriends {
@@ -91,5 +92,9 @@
     
 }
 
+- (void)reloadFriendList
+{
+    [self.tableView reloadData];
+}
 
 @end

@@ -85,7 +85,7 @@
     
     [super viewWillAppear:animated];
     self.chatTableView.frame = CGRectMake(0, 0,self.view.bounds.size.width , self.view.bounds.size.height-55);
-
+    self.friendsTableVC.view.frame = CGRectMake(CGRectGetMinX(self.chatTableView.frame), CGRectGetMaxY(self.chatTableView.frame),self.friendsTableVC.view.bounds.size.width , self.friendsTableVC.view.bounds.size.height);
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -168,6 +168,9 @@
 {
     self.chatToolBar = [[UUInputFunctionView alloc]initWithSuperVC:self];
     self.chatToolBar.delegate = self;
+    [self.chatToolBar.btnVoiceRecord removeFromSuperview];
+    [self.chatToolBar.btnChangeVoiceState removeFromSuperview];
+
     [self.view addSubview:self.chatToolBar];
     
     
@@ -366,6 +369,8 @@
 
     if ([textView.text isEqualToString:@"@"]) {
         [self populateSearchTable];
+    } else if ([textView.text isEqualToString:@""] && self.isBottomTablePopulated) {
+        [self removeSearchTable];
     }
 }
 
@@ -373,18 +378,20 @@
 - (void)populateSearchTable {
 
     if (!self.isBottomTablePopulated) {
-        [self.friendsTableVC.view setFrame:CGRectMake(0, self.kyFrame.origin.y - 55 - 90, self.view.bounds.size.width, 90)];
-        [self.view addSubview:self.friendsTableVC.view];
-        self.isBottomTablePopulated = YES;
+        [UIView animateWithDuration:0.4 animations:^{
+            [self.view addSubview:self.friendsTableVC.view];
+            [self.friendsTableVC.view setFrame:CGRectMake(0, self.kyFrame.origin.y - 55 - 90, self.view.bounds.size.width, 90)];
+        } completion:^(BOOL finished) {
+            self.isBottomTablePopulated = YES;
+        }];
     }
-
-    
 }
 
 - (void)didSelectHDuserData:(HDFriendData *)friendData {
     [self removeSearchTable];
-    
-    NSString *text = [NSString stringWithFormat:@"You added %@to group",friendData.name];
+    [self.friendsTableVC reloadFriendList];
+
+    NSString *text = [NSString stringWithFormat:@"You added %@ to group",friendData.name];
     [self sendMessageWithText:text];
     
     NSArray *array =  self.chat.pfChat[@"partcipants"];
@@ -416,8 +423,12 @@
 
 - (void)removeSearchTable {
     if (self.isBottomTablePopulated) {
-        [self.friendsTableVC.view removeFromSuperview];
-        self.isBottomTablePopulated = NO;
+        [UIView animateWithDuration:0.2 animations:^{
+            self.friendsTableVC.view.frame = CGRectMake(CGRectGetMinX(self.chatTableView.frame), CGRectGetMaxY(self.chatTableView.frame),self.friendsTableVC.view.bounds.size.width , self.friendsTableVC.view.bounds.size.height-55);
+        } completion:^(BOOL finished) {
+            [self.friendsTableVC.view removeFromSuperview];
+            self.isBottomTablePopulated = NO;
+        }];
     }
 }
 
