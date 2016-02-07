@@ -19,7 +19,7 @@
 #import "HDPlacesTableViewCell.h"
 #import <UIImageView+WebCache.h>
 
-#define isHost = NO
+#define isHost = YES
 
 
 @interface HDChatViewController () <UITableViewDataSource,UITableViewDelegate,UUMessageCellDelegate,UUInputFunctionViewDelegate,UITextViewDelegate,HDFriendsViewControllerDelegate,HDPlacesTableViewCellDelegate>
@@ -486,13 +486,79 @@
 {
     NSIndexPath *indexPath = [self.chatTableView indexPathForCell:cell];
     HDMessage *hdMessage = [self.chat.messages objectAtIndex:indexPath.row];
-
+    PFQuery *latestChanges = [PFQuery queryWithClassName:@"message"];
+    [latestChanges whereKey:@"objectId" equalTo:hdMessage.objectID];
+    
+    [latestChanges findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+    
+        PFObject *message = [objects lastObject];
+        NSArray *lus = hdMessage.likedUsers;
+        NSMutableArray *total = [NSMutableArray array];
+        if (lus.count) {
+            [total addObjectsFromArray:lus];
+        }
+        
+        [total addObject:[HDDataManager sharedManager].currentUser.emailID];
+        message[@"likedUsers"] = total;
+        [message saveInBackground];
+        hdMessage.likedUsers = total;
+        NSArray *part =  self.chat.pfChat[@"partcipants"];
+        
+        for(NSDictionary *dict in part) {
+            NSString *deviceToken = dict[@"deviceToken"];
+            NSString *email = [[[HDDataManager sharedManager] currentUser] emailID];
+            if (![dict[@"emailID"] isEqualToString:email]) {
+                if (deviceToken) {
+                    PFQuery *query = [PFQuery queryWithClassName:@"SubscribeService"];
+                    [query whereKey:@"deviceToken" equalTo:deviceToken];
+                    [PFPush sendPushMessageToQuery:query withMessage: [NSString stringWithFormat:@"message%@",message.objectId] error:nil];
+                }
+            }
+            
+        }
+        [cell setLikesCount:[total count]];
+    }];
     
 }
 
 - (void)dislikeButtonTappedForCell:(HDPlacesTableViewCell *)cell
 {
+    NSIndexPath *indexPath = [self.chatTableView indexPathForCell:cell];
+    HDMessage *hdMessage = [self.chat.messages objectAtIndex:indexPath.row];
+    PFQuery *latestChanges = [PFQuery queryWithClassName:@"message"];
+    [latestChanges whereKey:@"objectID" equalTo:hdMessage.objectID];
     
+    [latestChanges findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        
+        PFObject *message = [objects lastObject];
+        NSArray *lus = hdMessage.disLikedUsers;
+        NSMutableArray *total = [NSMutableArray array];
+        if (lus.count) {
+            [total addObjectsFromArray:lus];
+        }
+        
+        [total addObject:[HDDataManager sharedManager].currentUser.emailID];
+        message[@"disLikedUsers"] = total;
+        [message saveInBackground];
+        hdMessage.disLikedUsers = total;
+
+        NSArray *part =  self.chat.pfChat[@"partcipants"];
+        
+        for(NSDictionary *dict in part) {
+            NSString *deviceToken = dict[@"deviceToken"];
+            NSString *email = [[[HDDataManager sharedManager] currentUser] emailID];
+            if (![dict[@"emailID"] isEqualToString:email]) {
+                if (deviceToken) {
+                    PFQuery *query = [PFQuery queryWithClassName:@"SubscribeService"];
+                    [query whereKey:@"deviceToken" equalTo:deviceToken];
+                    [PFPush sendPushMessageToQuery:query withMessage: [NSString stringWithFormat:@"message%@",message.objectId] error:nil];
+                }
+            }
+            
+        }
+        [cell setDislikesCount:[total count]];
+    }];
+
 }
 
 - (void)updateChatWithId:(NSString *)chatID {
@@ -557,30 +623,44 @@
 - (void)updateMessageWithID:(NSString *)messageID {
     
     PFQuery *latestChanges = [PFQuery queryWithClassName:@"message"];
-    [latestChanges whereKey:@"objectId" greaterThan:messageID];
+    [latestChanges whereKey:@"objectId" equalTo:messageID];
+    
     [latestChanges findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         
         PFObject *message = [objects firstObject];
         if (message) {
-            HDMessage *localMessage = [[HDMessage alloc] init];
-            localMessage.senderID = message[@"senderID"];
-            localMessage.senderMailID = message[@"senderMailID"];
-            localMessage.senderName = message[@"senderName"];
-            localMessage.timestamp = message[@"timestamp"];
-            localMessage.text = message[@"text"];
-            localMessage.filePath = message[@"filePath"];
+            HDMessage *localMessage = [self messageWithObjectID:message.objectId];
+            //localMessage.senderID = message[@"senderID"];
+            //localMessage.senderMailID = message[@"senderMailID"];
+            //localMessage.senderName = message[@"senderName"];
+            //localMessage.timestamp = message[@"timestamp"];
+            //localMessage.text = message[@"text"];
+            //localMessage.filePath = message[@"filePath"];
             localMessage.likedUsers = message[@"likedUsers"];
             localMessage.disLikedUsers = message[@"disLikedUsers"];
-            localMessage.placeName = message[@"placeName"];
-            localMessage.ratings = message[@"rating"];
-            localMessage. vicinity = message[@"vicinity"];
-            localMessage.photRef = message[@"photRef"];
+            //localMessage.placeName = message[@"placeName"];
+            //localMessage.ratings = message[@"rating"];
+            //localMessage. vicinity = message[@"vicinity"];
+            //localMessage.photRef = message[@"photRef"];
             localMessage.objectID = message.objectId;
             [self.chat.messages addObject:localMessage];
+            [self.chatTableView reloadData];
         }
         
     }];
     
+}
+
+- (HDMessage *)messageWithObjectID:(NSString *)objectID {
+ 
+    __block HDMessage *exixtingMessage = nil;
+    [self.chat.messages enumerateObjectsUsingBlock:^(HDMessage  *message, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([message.objectID isEqualToString:objectID]) {
+            *stop = YES;
+            exixtingMessage = message;
+        }
+    }];
+    return exixtingMessage;
 }
 
 @end

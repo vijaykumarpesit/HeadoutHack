@@ -136,7 +136,7 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
         [chatVC updateChatWithId:str];
     } else if ([alertBody containsString:@"message"]) {
         NSMutableString *str = [NSMutableString stringWithString:alertBody];
-        [str stringByReplacingOccurrencesOfString:@"message" withString:@""];
+       str = [str stringByReplacingOccurrencesOfString:@"message" withString:@""];
         [chatVC updateMessageWithID:str];
     }
    // [PFPush handlePush:userInfo];

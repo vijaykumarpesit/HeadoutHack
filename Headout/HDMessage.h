@@ -17,8 +17,8 @@
 @property (nonatomic, strong) NSString *text;
 @property (nonatomic, assign) BOOL isIncoming;
 @property (nonatomic, strong) NSString *filePath;
-@property (nonatomic, strong) NSSet *likedUsers;
-@property (nonatomic, strong) NSSet *disLikedUsers;
+@property (nonatomic, strong) NSArray *likedUsers;
+@property (nonatomic, strong) NSArray *disLikedUsers;
 @property (nonatomic, strong) NSString *placeName;
 @property (nonatomic, strong) NSString *ratings;
 @property (nonatomic, strong) NSString *vicinity;

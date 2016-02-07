@@ -83,7 +83,9 @@
         message[@"photRef"] = hdMessage.photRef;
     }
     
-    [message saveInBackground];
+    [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError * _Nullable error) {
+        hdMessage.objectID = message.objectId;
+    }];
     
     NSArray *messages = nil;
     NSMutableArray *updatedMessages = [[NSMutableArray alloc] init];
