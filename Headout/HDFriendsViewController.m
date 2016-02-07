@@ -80,6 +80,8 @@
                 user.emailID = object[@"emailID"];
                 user.userID = object[@"userID"];
                 user.profilePicPath = object[@"profilePicPath"];
+                user.deviceToken = object[@"deviceToken"];
+
                 [self.dataArray addObject:user];
                 
             }

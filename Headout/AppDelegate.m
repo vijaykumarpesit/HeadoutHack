@@ -131,8 +131,13 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
     
     NSString*alertBody=[[userInfo objectForKey:@"aps"]objectForKey:@"alert"];
     if ([alertBody containsString:@"chat"]) {
+        NSMutableString *str = [NSMutableString stringWithString:alertBody];
+        str =  [str stringByReplacingOccurrencesOfString:@"chat" withString:@""];
+        [chatVC updateChatWithId:str];
     } else if ([alertBody containsString:@"message"]) {
-        
+        NSMutableString *str = [NSMutableString stringWithString:alertBody];
+        [str stringByReplacingOccurrencesOfString:@"message" withString:@""];
+        [chatVC updateMessageWithID:str];
     }
     [PFPush handlePush:userInfo];
 }

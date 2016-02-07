@@ -61,16 +61,16 @@
     //Load the view
     [self.friendsTableVC view];
     [self.chatTableView registerNib:[UINib nibWithNibName:@"HDPlacesTableViewCell" bundle:nil] forCellReuseIdentifier:@"placesCell"];
-    
-    NSString *chatID =  [[NSUserDefaults standardUserDefaults] valueForKey:@"chatID"];
-    if (chatID) {
-        self.chatIdentifier = chatID;
-    } else {
-        self.chatIdentifier = [self GetUUID];
-        [[NSUserDefaults standardUserDefaults] setValue:self.chatIdentifier forKey:@"chatID"];
-    }
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [self createAndSyncChataIfNeeded];
+//    
+//    NSString *chatID =  [[NSUserDefaults standardUserDefaults] valueForKey:@"chatID"];
+//    if (chatID) {
+//        self.chatIdentifier = chatID;
+//    } else {
+//        self.chatIdentifier = [self GetUUID];
+//        [[NSUserDefaults standardUserDefaults] setValue:self.chatIdentifier forKey:@"chatID"];
+//    }
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//    [self createAndSyncChataIfNeeded];
 }
 
 - (NSString *)GetUUID
@@ -417,7 +417,7 @@
     if (deviceToken) {
         PFQuery *query = [PFQuery queryWithClassName:@"SubscribeService"];
         [query whereKey:@"deviceToken" equalTo:deviceToken];
-        [PFPush sendPushMessageToQuery:query withMessage: [NSString stringWithFormat:@"chat%@",self.chat.identifier] error:nil];
+        [PFPush sendPushMessageToQuery:query withMessage: [NSString stringWithFormat:@"chat%@",self.chatIdentifier] error:nil];
     }
 }
 
@@ -446,8 +446,7 @@
 }
 
 - (void)updateChatWithId:(NSString *)chatID {
-    self.chatIdentifier = chatID;
-    if (self.chat) {
+    if (self.chatIdentifier && self.chat.messages.count) {
         HDMessage *lastMessage = [self.chat.messages lastObject];
         PFQuery *latestChanges = [PFQuery queryWithClassName:@"message"];
         [latestChanges whereKey:@"updatedAt" greaterThan:lastMessage.timestamp];
@@ -481,6 +480,7 @@
         
         
     } else {
+        self.chatIdentifier = chatID;
         [self createAndSyncChataIfNeeded];
     }
 }
