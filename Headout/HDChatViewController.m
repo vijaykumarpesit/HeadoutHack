@@ -194,6 +194,9 @@
     [self.chatToolBar.btnVoiceRecord removeFromSuperview];
     [self.chatToolBar.btnChangeVoiceState removeFromSuperview];
 
+    [self.chatToolBar.TextViewInput setFrame:CGRectMake(5, CGRectGetMinY(self.chatToolBar.TextViewInput.frame), CGRectGetWidth(self.chatToolBar.TextViewInput.frame) + 30, CGRectGetHeight(self.chatToolBar.TextViewInput.frame))];
+    [self.chatToolBar changeSendBtnWithPhoto:NO];
+    [self.chatToolBar.btnSendMessage setFrame:CGRectMake(CGRectGetMinX(self.chatToolBar.btnSendMessage.frame) - 10, CGRectGetMinY(self.chatToolBar.btnSendMessage.frame), CGRectGetWidth(self.chatToolBar.btnSendMessage.frame) + 10, CGRectGetHeight(self.chatToolBar.btnSendMessage.frame))];
     [self.view addSubview:self.chatToolBar];
     
     
