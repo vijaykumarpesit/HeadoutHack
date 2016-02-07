@@ -48,9 +48,10 @@
 //            
 //            NSArray* details = [json objectForKey:@"results"];
 //        });
-        if (results) {
-            results (placeArray);
-        }
+        
+    }
+    if (results) {
+        results (placeArray);
     }
 }
 
