@@ -19,7 +19,7 @@
 #import "HDPlacesTableViewCell.h"
 #import <UIImageView+WebCache.h>
 
-#define isHost = YES
+#define isHost = NO
 
 
 @interface HDChatViewController () <UITableViewDataSource,UITableViewDelegate,UUMessageCellDelegate,UUInputFunctionViewDelegate,UITextViewDelegate,HDFriendsViewControllerDelegate,HDPlacesTableViewCellDelegate>
@@ -526,7 +526,7 @@
     NSIndexPath *indexPath = [self.chatTableView indexPathForCell:cell];
     HDMessage *hdMessage = [self.chat.messages objectAtIndex:indexPath.row];
     PFQuery *latestChanges = [PFQuery queryWithClassName:@"message"];
-    [latestChanges whereKey:@"objectID" equalTo:hdMessage.objectID];
+    [latestChanges whereKey:@"objectId" equalTo:hdMessage.objectID];
     
     [latestChanges findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
         
@@ -630,20 +630,9 @@
         PFObject *message = [objects firstObject];
         if (message) {
             HDMessage *localMessage = [self messageWithObjectID:message.objectId];
-            //localMessage.senderID = message[@"senderID"];
-            //localMessage.senderMailID = message[@"senderMailID"];
-            //localMessage.senderName = message[@"senderName"];
-            //localMessage.timestamp = message[@"timestamp"];
-            //localMessage.text = message[@"text"];
-            //localMessage.filePath = message[@"filePath"];
-            localMessage.likedUsers = message[@"likedUsers"];
+             localMessage.likedUsers = message[@"likedUsers"];
             localMessage.disLikedUsers = message[@"disLikedUsers"];
-            //localMessage.placeName = message[@"placeName"];
-            //localMessage.ratings = message[@"rating"];
-            //localMessage. vicinity = message[@"vicinity"];
-            //localMessage.photRef = message[@"photRef"];
-            localMessage.objectID = message.objectId;
-            [self.chat.messages addObject:localMessage];
+             localMessage.objectID = message.objectId;
             [self.chatTableView reloadData];
         }
         
