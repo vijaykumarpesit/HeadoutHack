@@ -26,30 +26,21 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.9.1):
     - FBSDKCoreKit
-  - JSQMessagesViewController (5.3.2):
-    - JSQSystemSoundPlayer (= 1.5.2)
-  - JSQSystemSoundPlayer (1.5.2)
   - Parse (1.12.0):
     - Bolts/Tasks (~> 1.5)
+  - SDWebImage (3.7.5):
+    - SDWebImage/Core (= 3.7.5)
+  - SDWebImage-ProgressView (0.4.0):
+    - SDWebImage (~> 3.7.0)
+  - SDWebImage/Core (3.7.5)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
-  - JSQMessagesViewController (from `https://github.com/jessesquires/JSQMessagesViewController`,
-    branch `version_5.3.2_patch`)
   - Parse
-
-EXTERNAL SOURCES:
-  JSQMessagesViewController:
-    :branch: version_5.3.2_patch
-    :git: https://github.com/jessesquires/JSQMessagesViewController
-
-CHECKOUT OPTIONS:
-  JSQMessagesViewController:
-    :commit: 78b1797bc0ae273cf7a104853c8293acfaed174b
-    :git: https://github.com/jessesquires/JSQMessagesViewController
+  - SDWebImage-ProgressView
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
@@ -57,8 +48,8 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: aee20b6d9855f15b618d4fddd1a5ad45f5a4a59d
   FBSDKLoginKit: ec22dc49bd372b064e93d6773df4ffefb3a552a2
   FBSDKShareKit: b8c8ef0ed173f9fc1b3c8df384a0202ce53008d4
-  JSQMessagesViewController: 6eedd009d4eabb6089ab7578130545899bea6c0f
-  JSQSystemSoundPlayer: 443466bd5f4537d0b7f15a0184244169ae65f8e5
   Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
+  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
+  SDWebImage-ProgressView: cdc29091ec0d53fd6dab3df65039a4f308e0a5ae
 
 COCOAPODS: 0.39.0

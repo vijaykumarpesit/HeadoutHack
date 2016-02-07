@@ -29,22 +29,22 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>JSQMessagesViewController.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>JSQSystemSoundPlayer.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Parse.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>Pods.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SDWebImage-ProgressView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SDWebImage.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -57,17 +57,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>416D9753053AB491D331E4DFB4FB923B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>496FDA6DE0FD014B689C0738339F5170</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>4E286D373D75563CE26E479A68203892</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6E41649793FB7879AC8F6414C0D0CC6A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>7AB5A64F2759B7BAD5A46A9FF5EE168B</key>
+		<key>7D1202E702E9B5BDFE19E2DAD511735C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -83,11 +88,6 @@
 			<true/>
 		</dict>
 		<key>9B916844F33E8D3CF7BC18CE424E9721</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D799E722697D67C0210335E8F5950BAC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
