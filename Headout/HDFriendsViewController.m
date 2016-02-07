@@ -25,7 +25,10 @@
     [super viewDidLoad];
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
     self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
     self.dataArray = [[NSMutableArray alloc] init];
+    [self.view addSubview:self.tableView];
     [self.tableView registerNib:[UINib nibWithNibName:@"FriendsCell" bundle:nil] forCellReuseIdentifier:@"reUseID"];
     
     if (self.isInFriendsMode) {
@@ -43,10 +46,14 @@
     
     FriendsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reUseID"];
     if (self.isInFriendsMode) {
-        HDUser *user = [self.dataArray objectAtIndex:indexPath.row];
+        HDFriendData *user = [self.dataArray objectAtIndex:indexPath.row];
         cell.name.text = user.name;
     }
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 40;
 }
 
 - (void)loadAllFriends {
@@ -56,21 +63,26 @@
     [friendsQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         
         for (PFObject *object in objects) {
-            if (![object[@"emailID"] isEqualToString:[[[HDDataManager sharedManager] currentUser] emailID]]) {
-                HDUser *user = [[HDUser alloc] init];
-                user.name = object[@""];
+            
+            NSString *emailID = [[[HDDataManager sharedManager] currentUser] emailID];
+            
+            if (![object[@"emailID"] isEqualToString:emailID]) {
+                HDFriendData *user = [[HDFriendData alloc] init];
+                user.name = object[@"name"];
                 user.emailID = object[@"emailID"];
                 user.userID = object[@"userID"];
                 user.profilePicPath = object[@"profilePicPath"];
                 [self.dataArray addObject:user];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.tableView reloadData];
-                });
+                
             }
             
         }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
     }];
     
 }
+
 
 @end

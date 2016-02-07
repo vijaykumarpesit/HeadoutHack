@@ -35,30 +35,36 @@ NSString * const kProfilePic = @"profilePic";
 - (void)setUserID:(NSString*)userID {
     if (userID) {
         [self.parseUser setObject:userID forKey:kKeyUserId];
+        [[NSUserDefaults standardUserDefaults] setValue:userID forKey:kKeyUserId];
+
     }
 }
 
 - (NSString*)userID {
-    return [self.parseUser objectForKey:kKeyUserId];
+    return [[NSUserDefaults  standardUserDefaults] valueForKey:kKeyUserId];
 }
 
 
 
 - (void)setName:(NSString*)Name {
     [self.parseUser setObject:Name forKey:kKeyName];
+    [[NSUserDefaults standardUserDefaults] setValue:Name forKey:kKeyName];
 }
 
 - (NSString*)name {
-    return [self.parseUser objectForKey:kKeyName];
+    return [[NSUserDefaults  standardUserDefaults] valueForKey:kKeyName];
 }
 
 
 - (void)setEmailID:(NSString *)emailID {
     [self.parseUser setObject:emailID forKey:kEmailID];
+    [[NSUserDefaults standardUserDefaults] setValue:emailID forKey:kEmailID];
+
 }
 
 - (NSString*)emailID {
-    return [self.parseUser objectForKey:kEmailID];
+    return [[NSUserDefaults  standardUserDefaults] valueForKey:kEmailID];
+
 }
 
 - (void)saveUser {
@@ -105,13 +111,14 @@ NSString * const kProfilePic = @"profilePic";
     PFFile *imageFile = [PFFile fileWithName:[NSString stringWithFormat:@"profilePic.png"] data:imageData];
     [imageFile saveInBackground];
     self.parseUser[@"ProfilePic"] = imageFile;
+    [[NSUserDefaults standardUserDefaults] setValue:imageFile.url forKey:@"ProfilePic"];
+
     [self.parseUser saveInBackground];
 }
 
 - (NSString *)profilePicPath {
     
-    PFFile *imageFile = self.parseUser[@"ProfilePic"];
-    return  imageFile.url;
+    return [[NSUserDefaults  standardUserDefaults] valueForKey:@"ProfilePic"];
 }
 
 @end

@@ -27,7 +27,8 @@
 @property (nonatomic, strong) UUInputFunctionView *chatToolBar;
 @property (nonatomic, strong)  HDFriendsViewController*friendsTableVC;
 @property (nonatomic, strong) HDFriendsViewController *categoriesTableVC;
-
+@property (nonatomic, assign) CGRect kyFrame;
+@property (nonatomic, assign) BOOL isBottomTablePopulated;
 @end
 
 @implementation HDChatViewController
@@ -53,7 +54,8 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardChange:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(tableViewScrollToBottom) name:UIKeyboardDidShowNotification object:nil];
     
-    self.friendsTableVC = [[HDFriendsViewController alloc] initWithNibName:@"HDFriendsViewController" bundle:nil];
+    self.friendsTableVC = [[HDFriendsViewController alloc] initWithNibName:nil bundle:nil];
+    self.friendsTableVC.isInFriendsMode = YES;
     //Load the view
     [self.friendsTableVC view];
     
@@ -129,6 +131,7 @@
     [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] getValue:&animationCurve];
     [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
     [[userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardEndFrame];
+    self.kyFrame = keyboardEndFrame;
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:animationDuration];
@@ -239,8 +242,19 @@
 - (void)UUInputFunctionView:(UUInputFunctionView *)funcView textDidChange:(UITextView *)textView {
 
     if ([textView.text isEqualToString:@"@"]) {
-        //Populate small table
+        [self populateSearchTable];
     }
 }
 
+//We need to aniamte this
+- (void)populateSearchTable {
+
+    if (!self.isBottomTablePopulated) {
+        [self.friendsTableVC.view setFrame:CGRectMake(0, self.kyFrame.origin.y - 55 - 90, self.view.bounds.size.width, 90)];
+        [self.view addSubview:self.friendsTableVC.view];
+        self.isBottomTablePopulated = YES;
+    }
+
+    
+}
 @end
