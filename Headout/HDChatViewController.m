@@ -18,7 +18,7 @@
 #import "HDFriendsViewController.h"
 
 
-@interface HDChatViewController () <UITableViewDataSource,UITableViewDelegate,UUMessageCellDelegate,UUInputFunctionViewDelegate,UITextViewDelegate>
+@interface HDChatViewController () <UITableViewDataSource,UITableViewDelegate,UUMessageCellDelegate,UUInputFunctionViewDelegate,UITextViewDelegate,HDFriendsViewControllerDelegate  >
 
 @property (nonatomic, strong) NSCache *avatarCache;
 @property (nonatomic, strong) UIImageView *avatarImageView;
@@ -54,6 +54,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(tableViewScrollToBottom) name:UIKeyboardDidShowNotification object:nil];
     
     self.friendsTableVC = [[HDFriendsViewController alloc] initWithNibName:nil bundle:nil];
+    self.friendsTableVC.delegate = self;
     self.friendsTableVC.isInFriendsMode = YES;
     //Load the view
     [self.friendsTableVC view];
@@ -292,20 +293,26 @@
      }
     
     if (message.length > 0) {
-        HDMessage *hdMessage = [[HDMessage alloc] init];
-        hdMessage.text = message;
-        hdMessage.senderID = [[[HDDataManager sharedManager] currentUser] userID];
-        hdMessage.senderName = [[[HDDataManager sharedManager] currentUser] name];
-        hdMessage.senderMailID = [[[HDDataManager sharedManager] currentUser] emailID];
-        hdMessage.timestamp = [NSDate date];
-        funcView.TextViewInput.text = @"";
-        [self.chat.messages addObject:hdMessage];
-        [self.chatTableView reloadData];
-        [self tableViewScrollToBottom];
-        [HDDataManager sendHDMessage:hdMessage toChat:self.chat.pfChat];
+        [self sendMessageWithText:message];
     }
     
     //[[StateMachineManager sharedInstance] userRepliedWithText:message];
+}
+
+- (void)sendMessageWithText:(NSString *)text {
+    HDMessage *hdMessage = [[HDMessage alloc] init];
+    hdMessage.text = text;
+    hdMessage.senderID = [[[HDDataManager sharedManager] currentUser] userID];
+    hdMessage.senderName = [[[HDDataManager sharedManager] currentUser] name];
+    hdMessage.senderMailID = [[[HDDataManager sharedManager] currentUser] emailID];
+    hdMessage.timestamp = [NSDate date];
+    [self.chat.messages addObject:hdMessage];
+    [self.chatTableView reloadData];
+    [self tableViewScrollToBottom];
+    self.chatToolBar.TextViewInput.text = @"";
+
+    [HDDataManager sendHDMessage:hdMessage toChat:self.chat.pfChat];
+
 }
 
 - (void)UUInputFunctionView:(UUInputFunctionView *)funcView sendPicture:(UIImage *)image
@@ -343,6 +350,38 @@
 
 - (void)didSelectHDuserData:(HDFriendData *)friendData {
     [self removeSearchTable];
+    
+    NSString *text = [NSString stringWithFormat:@"You added %@to group",friendData.name];
+    [self sendMessageWithText:text];
+    
+    NSArray *array =  self.chat.pfChat[@"partcipants"];
+    NSMutableArray *updatedArray = [[NSMutableArray alloc] init];
+    NSMutableDictionary *userDict = [[NSMutableDictionary alloc] init];
+    [userDict setValue:friendData.userID forKey:@"userID"];
+    [userDict setValue:friendData.name forKey:@"name"];
+    [userDict setValue:friendData.emailID forKey:@"emailID"];
+    [userDict setValue:friendData.profilePicPath forKey:@"profilePicPath"];
+    [userDict setValue:friendData.deviceToken forKey:@"deviceToken"];
+    
+    
+    if (array) {
+        [updatedArray addObjectsFromArray:array];
+    }
+    self.chat.pfChat[@"partcipants"] = updatedArray;
+    [self.chat.pfChat saveInBackground];
+    
+
+    
+    // Send push notification to query
+    NSString *deviceToken = friendData.deviceToken;
+    if (deviceToken) {
+        PFQuery *query = [PFQuery queryWithClassName:@"SubscribeService"];
+        [query whereKey:@"deviceToken" equalTo:deviceToken];
+        [PFPush sendPushMessageToQuery:query withMessage:self.chat.identifier error:nil];
+    }
+    
+    
+    
 }
 
 - (void)removeSearchTable {

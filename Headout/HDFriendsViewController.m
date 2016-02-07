@@ -60,6 +60,7 @@
 
     HDFriendData *data = [self.dataArray objectAtIndex:indexPath.row];
     [self.delegate didSelectHDuserData:data];
+    [self.dataArray removeObjectAtIndex:indexPath.row];
 }
 
 - (void)loadAllFriends {

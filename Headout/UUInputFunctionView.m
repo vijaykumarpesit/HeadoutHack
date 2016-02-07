@@ -75,6 +75,7 @@
         self.TextViewInput.layer.borderWidth = 1;
         self.TextViewInput.layer.borderColor = [[[UIColor lightGrayColor] colorWithAlphaComponent:0.4] CGColor];
         [self addSubview:self.TextViewInput];
+        self.TextViewInput.keyboardType = UIKeyboardTypeTwitter;
         
         //输入框的提示语
         placeHold = [[UILabel alloc]initWithFrame:CGRectMake(20, 0, 200, 30)];
