@@ -139,6 +139,6 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
         [str stringByReplacingOccurrencesOfString:@"message" withString:@""];
         [chatVC updateMessageWithID:str];
     }
-    [PFPush handlePush:userInfo];
+   // [PFPush handlePush:userInfo];
 }
 @end

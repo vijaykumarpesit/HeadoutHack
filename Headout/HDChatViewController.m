@@ -19,6 +19,8 @@
 #import "HDPlacesTableViewCell.h"
 #import <UIImageView+WebCache.h>
 
+#define isHost = YES
+
 
 @interface HDChatViewController () <UITableViewDataSource,UITableViewDelegate,UUMessageCellDelegate,UUInputFunctionViewDelegate,UITextViewDelegate,HDFriendsViewControllerDelegate,HDPlacesTableViewCellDelegate>
 
@@ -62,15 +64,19 @@
     [self.friendsTableVC view];
     [self.chatTableView registerNib:[UINib nibWithNibName:@"HDPlacesTableViewCell" bundle:nil] forCellReuseIdentifier:@"placesCell"];
     
-    NSString *chatID =  [[NSUserDefaults standardUserDefaults] valueForKey:@"chatID"];
-    if (chatID) {
-        self.chatIdentifier = chatID;
-    } else {
-        self.chatIdentifier = [self GetUUID];
-        [[NSUserDefaults standardUserDefaults] setValue:self.chatIdentifier forKey:@"chatID"];
-    }
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [self createAndSyncChataIfNeeded];
+#ifdef isHost
+        NSString *chatID =  [[NSUserDefaults standardUserDefaults] valueForKey:@"chatID"];
+        if (chatID) {
+            self.chatIdentifier = chatID;
+        } else {
+            self.chatIdentifier = [self GetUUID];
+            [[NSUserDefaults standardUserDefaults] setValue:self.chatIdentifier forKey:@"chatID"];
+        }
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self createAndSyncChataIfNeeded];
+    
+#endif
+
 }
 
 - (NSString *)GetUUID
@@ -258,12 +264,18 @@
         UUMessageFrame * messageFrame = [[UUMessageFrame alloc] init];
         UUMessage *message = [[UUMessage alloc] init];
         //Change this profile pic depending on sender
-        NSString *profilePicPath = [[[HDDataManager sharedManager] currentUser] profilePicPath];
+        NSString *profilePicPath = nil;
+        
+        if (![hdMessage isIncoming]) {
+            profilePicPath = [[[HDDataManager sharedManager] currentUser] profilePicPath];
+        }
+        
         if (profilePicPath) {
             message.strIcon = profilePicPath;
         } else {
             message.strIcon = @"";
         }
+        
         if (hdMessage.senderID) {
             message.strId = hdMessage.senderID;
             
@@ -481,7 +493,8 @@
         HDMessage *lastMessage = [self.chat.messages lastObject];
         PFQuery *latestChanges = [PFQuery queryWithClassName:@"message"];
         [latestChanges whereKey:@"updatedAt" greaterThan:lastMessage.timestamp];
-        
+        [latestChanges whereKey:@"createdAt" greaterThan:lastMessage.timestamp];
+
         [latestChanges findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
             
             for(PFObject *message in objects) {

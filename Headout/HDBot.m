@@ -29,7 +29,7 @@
         message.placeName = place[@"name"];
         message.ratings = place[@"rating"];
         message.vicinity = place[@"vicinity"];
-        
+        message.timestamp = [NSDate date];
         [placeArray addObject:message];
         
         NSDictionary *photos = [place[@"photos"] firstObject];
