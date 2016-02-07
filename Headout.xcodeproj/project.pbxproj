@@ -45,6 +45,7 @@
 		B1295BF31C66786900F3021E /* UUAVAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = B1295BEA1C66786900F3021E /* UUAVAudioPlayer.m */; };
 		B1295BF61C66916800F3021E /* HDFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1295BF51C66916800F3021E /* HDFriendsViewController.m */; };
 		B1295BF81C6691B400F3021E /* HDFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B1295BF71C6691B400F3021E /* HDFriendsViewController.xib */; };
+		B1295BFB1C66983800F3021E /* HDBot.m in Sources */ = {isa = PBXBuildFile; fileRef = B1295BFA1C66983800F3021E /* HDBot.m */; };
 		B1689A451C65BE6A00436439 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B1689A441C65BE6A00436439 /* main.m */; };
 		B1689A481C65BE6A00436439 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B1689A471C65BE6A00436439 /* AppDelegate.m */; };
 		B1689A4B1C65BE6A00436439 /* HDLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B1689A4A1C65BE6A00436439 /* HDLoginViewController.m */; };
@@ -120,6 +121,8 @@
 		B1295BF41C66916800F3021E /* HDFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDFriendsViewController.h; sourceTree = "<group>"; };
 		B1295BF51C66916800F3021E /* HDFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDFriendsViewController.m; sourceTree = "<group>"; };
 		B1295BF71C6691B400F3021E /* HDFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HDFriendsViewController.xib; sourceTree = "<group>"; };
+		B1295BF91C66983800F3021E /* HDBot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HDBot.h; sourceTree = "<group>"; };
+		B1295BFA1C66983800F3021E /* HDBot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HDBot.m; sourceTree = "<group>"; };
 		B1689A401C65BE6A00436439 /* Headout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Headout.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1689A441C65BE6A00436439 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B1689A461C65BE6A00436439 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -297,6 +300,8 @@
 				B1B77F081C662A4400A2F4EB /* HDFBLoginHandler.m */,
 				B1B77F0A1C662F5100A2F4EB /* HDDataManager.h */,
 				B1B77F0B1C662F5100A2F4EB /* HDDataManager.m */,
+				B1295BF91C66983800F3021E /* HDBot.h */,
+				B1295BFA1C66983800F3021E /* HDBot.m */,
 				B1689A4F1C65BE6A00436439 /* Assets.xcassets */,
 				B1689A4C1C65BE6A00436439 /* Main.storyboard */,
 				B1689A511C65BE6A00436439 /* LaunchScreen.storyboard */,
@@ -456,6 +461,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1295BFB1C66983800F3021E /* HDBot.m in Sources */,
 				B1689A4B1C65BE6A00436439 /* HDLoginViewController.m in Sources */,
 				B1295BF21C66786900F3021E /* UUImageAvatarBrowser.m in Sources */,
 				B1295BF31C66786900F3021E /* UUAVAudioPlayer.m in Sources */,

@@ -18,4 +18,6 @@
 @property (nonatomic, strong) NSString *filePath;
 @property (nonatomic, strong) NSSet *likedUsers;
 @property (nonatomic, strong) NSSet *disLikedUsers;
+@property (nonatomic, strong) NSString *placeName;
+@property (nonatomic, strong) NSString *ratings;
 @end

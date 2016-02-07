@@ -7,11 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
+
+
+typedef void (^FetchCompletion)(NSArray *results);
 
 @interface HDGoogleAPIFetcher : NSObject
 
+@property(nonatomic, strong) CLLocationManager *locationManager;
+
+
 + (HDGoogleAPIFetcher *)sharedIntance;
 
-- (void)fetchPlacesNearByOfType:(NSString *)category;
++ (void)fetchPlacesNearByOfType:(NSString *)category onCompletion:(FetchCompletion)completion;
 
 @end

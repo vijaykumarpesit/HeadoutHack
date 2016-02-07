@@ -14,6 +14,7 @@
 #import "UUMessageCell.h"
 #import "UUMessageFrame.h"
 #import "UUInputFunctionView.h"
+#import "HDBot.h"
 
 
 @interface HDChatViewController () <UITableViewDataSource,UITableViewDelegate,UUMessageCellDelegate,UUInputFunctionViewDelegate,UITextViewDelegate>
@@ -184,6 +185,21 @@
 #pragma mark - InputFunctionViewDelegate
 - (void)UUInputFunctionView:(UUInputFunctionView *)funcView sendMessage:(NSString *)message
 {
+     if (message.length > 0 && [[message substringToIndex:1] isEqualToString:@"#"]) {
+         NSString *category = [message substringFromIndex:1];
+         
+         [HDBot fetchHashTag:category onCompletion:^(NSArray *results) {
+             if (results.count > 5) {
+                 NSMutableArray *topFive = [NSMutableArray arrayWithArray:[results subarrayWithRange:NSMakeRange(0, 5)]];
+                 [HDBot hdMessagesFromPlaces:topFive onCompletion:^(NSArray *results) {
+                     
+                 }];
+
+             }
+             
+         }];
+     }
+    
     if (message.length > 0) {
         HDMessage *hdMessage = [[HDMessage alloc] init];
         hdMessage.text = message;
@@ -216,8 +232,6 @@
 
     if ([textView.text isEqualToString:@"@"]) {
         //Populate small table
-    } else if (textView.text.length > 0 && [[textView.text substringToIndex:1] isEqualToString:@"#"]) {
-        //Hash tag feature
     }
 }
 

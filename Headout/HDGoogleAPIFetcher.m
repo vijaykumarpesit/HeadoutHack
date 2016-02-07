@@ -11,7 +11,6 @@
 
 @interface HDGoogleAPIFetcher () <CLLocationManagerDelegate>
 
-@property(nonatomic, strong) CLLocationManager *locationManager;
 @property(nonatomic, strong) CLLocation *currentLocation;
 
 @end
@@ -90,33 +89,38 @@
      }];
 }
 
-- (void)fetchPlacesNearByOfType:(NSString *)category {
++ (void)fetchPlacesNearByOfType:(NSString *)category onCompletion:(FetchCompletion)completion{
     
-    NSString *url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?location=%f,%f&radius=%@&types=%@&sensor=true&key=%@", self.currentLocation.coordinate.latitude, self.currentLocation.coordinate.longitude, [NSString stringWithFormat:@"%i", 5000], category, GOOGLE_API_KEY];
+    CLLocation  *location = [[HDGoogleAPIFetcher sharedIntance] currentLocation];
+    
+    NSString *url = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/search/json?location=%f,%f&radius=%@&types=%@&sensor=true&key=%@", location.coordinate.latitude, location.coordinate.longitude, [NSString stringWithFormat:@"%i", 5000], category, GOOGLE_API_KEY];
     
     //Formulate the string as a URL object.
     NSURL *googleRequestURL=[NSURL URLWithString:url];
     
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSData* data = [NSData dataWithContentsOfURL: googleRequestURL];
-        [self fetchedData:data];
+        NSError* error;
+        NSDictionary* json = [NSJSONSerialization
+                              JSONObjectWithData:data
+                              
+                              options:kNilOptions
+                              error:&error];
+        
+        //The results from Google will be an array obtained from the NSDictionary object with the key "results".
+        NSArray* places = [json objectForKey:@"results"];
+        
+        if (completion) {
+            completion(places);
+        }
     });
 }
 
 
 -(void)fetchedData:(NSData *)responseData {
     //parse out the json data
-    NSError* error;
-    NSDictionary* json = [NSJSONSerialization
-                          JSONObjectWithData:responseData
-                          
-                          options:kNilOptions
-                          error:&error];
     
-    //The results from Google will be an array obtained from the NSDictionary object with the key "results".
-    NSArray* places = [json objectForKey:@"results"];
     
-    //Write out the data to the console.
-    NSLog(@"Google Data: %@", places);
+
 }
 @end
