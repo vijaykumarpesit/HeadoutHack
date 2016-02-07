@@ -62,13 +62,13 @@
     [self.friendsTableVC view];
     [self.chatTableView registerNib:[UINib nibWithNibName:@"HDPlacesTableViewCell" bundle:nil] forCellReuseIdentifier:@"placesCell"];
     
-//    NSString *chatID =  [[NSUserDefaults standardUserDefaults] valueForKey:@"chatID"];
-//    if (chatID) {
-//        self.chatIdentifier = chatID;
-//    } else {
+    NSString *chatID =  [[NSUserDefaults standardUserDefaults] valueForKey:@"chatID"];
+    if (chatID) {
+        self.chatIdentifier = chatID;
+    } else {
         self.chatIdentifier = [self GetUUID];
         [[NSUserDefaults standardUserDefaults] setValue:self.chatIdentifier forKey:@"chatID"];
-    //}
+    }
     [[NSUserDefaults standardUserDefaults] synchronize];
     [self createAndSyncChataIfNeeded];
 }
