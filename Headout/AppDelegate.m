@@ -108,6 +108,7 @@
     [currentInstallation saveInBackground];
     [[[HDDataManager sharedManager] currentUser] setDeviceToken:currentInstallation.deviceToken];
     [[[HDDataManager sharedManager] currentUser] saveUser];
+
 }
 
 - (void) loginButton:(FBSDKLoginButton *)loginButton
@@ -121,6 +122,18 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+    HDChatViewController *chatVC = nil;
+    if ([self.window.rootViewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navVC = (UINavigationController *)self.window.rootViewController;
+        chatVC = (HDChatViewController *) navVC.topViewController;
+    }
+    
+    NSString*alertBody=[[userInfo objectForKey:@"aps"]objectForKey:@"alert"];
+    if ([alertBody containsString:@"chat"]) {
+    } else if ([alertBody containsString:@"message"]) {
+        
+    }
     [PFPush handlePush:userInfo];
 }
 @end

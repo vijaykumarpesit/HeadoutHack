@@ -13,5 +13,7 @@
 
 @property (nonatomic, strong)NSString *chatIdentifier;
 
+- (void)updateChatWithId:(NSString *)chatID;
+- (void)updateMessageWithID:(NSString *)messageID;
 
 @end

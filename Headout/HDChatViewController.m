@@ -410,11 +410,8 @@
     if (deviceToken) {
         PFQuery *query = [PFQuery queryWithClassName:@"SubscribeService"];
         [query whereKey:@"deviceToken" equalTo:deviceToken];
-        [PFPush sendPushMessageToQuery:query withMessage:self.chat.identifier error:nil];
+        [PFPush sendPushMessageToQuery:query withMessage: [NSString stringWithFormat:@"chat%@",self.chat.identifier] error:nil];
     }
-    
-    
-    
 }
 
 - (void)removeSearchTable {
@@ -434,6 +431,74 @@
 
 - (void)dislikeButtonTappedForCell:(HDPlacesTableViewCell *)cell
 {
+    
+}
+
+- (void)updateChatWithId:(NSString *)chatID {
+    self.chatIdentifier = chatID;
+    if (self.chat) {
+        HDMessage *lastMessage = [self.chat.messages lastObject];
+        PFQuery *latestChanges = [PFQuery queryWithClassName:@"message"];
+        [latestChanges whereKey:@"updatedAt" greaterThan:lastMessage.timestamp];
+        
+        [latestChanges findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+            
+            for(PFObject *message in objects) {
+                if (message) {
+                    HDMessage *localMessage = [[HDMessage alloc] init];
+                    localMessage.senderID = message[@"senderID"];
+                    localMessage.senderMailID = message[@"senderMailID"];
+                    localMessage.senderName = message[@"senderName"];
+                    localMessage.timestamp = message[@"timestamp"];
+                    localMessage.text = message[@"text"];
+                    localMessage.filePath = message[@"filePath"];
+                    localMessage.likedUsers = message[@"likedUsers"];
+                    localMessage.disLikedUsers = message[@"disLikedUsers"];
+                    localMessage.placeName = message[@"placeName"];
+                    localMessage.ratings = message[@"rating"];
+                    localMessage. vicinity = message[@"vicinity"];
+                    localMessage.photRef = message[@"photRef"];
+                    [self.chat.messages addObject:localMessage];
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.chatTableView reloadData];
+                    });
+                }
+            }
+            
+        }];
+        
+        
+    } else {
+        [self createAndSyncChataIfNeeded];
+    }
+}
+
+- (void)updateMessageWithID:(NSString *)messageID {
+    
+    PFQuery *latestChanges = [PFQuery queryWithClassName:@"message"];
+    [latestChanges whereKey:@"objectId" greaterThan:messageID];
+    [latestChanges findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+        
+        PFObject *message = [objects firstObject];
+        if (message) {
+            HDMessage *localMessage = [[HDMessage alloc] init];
+            localMessage.senderID = message[@"senderID"];
+            localMessage.senderMailID = message[@"senderMailID"];
+            localMessage.senderName = message[@"senderName"];
+            localMessage.timestamp = message[@"timestamp"];
+            localMessage.text = message[@"text"];
+            localMessage.filePath = message[@"filePath"];
+            localMessage.likedUsers = message[@"likedUsers"];
+            localMessage.disLikedUsers = message[@"disLikedUsers"];
+            localMessage.placeName = message[@"placeName"];
+            localMessage.ratings = message[@"rating"];
+            localMessage. vicinity = message[@"vicinity"];
+            localMessage.photRef = message[@"photRef"];
+            [self.chat.messages addObject:localMessage];
+        }
+        
+    }];
     
 }
 
